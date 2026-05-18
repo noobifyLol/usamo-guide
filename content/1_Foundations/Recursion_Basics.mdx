@@ -1,8 +1,8 @@
 ---
 id: recursion-basics
 title: Recursion Basics
-author: USAMO Guide Team
-description: Building and solving simple recursive counting and probability models.
+author: Siddhant
+description: Using states and modeling a problem in terms of itself
 prerequisites: [counting-fundamentals, systematic-casework]
 ---
 
@@ -10,50 +10,65 @@ prerequisites: [counting-fundamentals, systematic-casework]
 
 ## Overview
 
-Recursion models a problem in terms of smaller versions of itself. On AMC 8,
+You may run across combinatorial problems that seem almost impossible to solve. They may involve a strenuous amount of casework or "bashing", but usually, many such problems can be solved via recursion. Recursion models a problem in terms of smaller versions of itself. In math competitions,
 recursion is especially useful in path counting, constrained arrangements, and
 step-by-step probability processes.
 
-## Key Ideas
+## Recursion?
 
-- A recursion needs a **state** and a **transition rule**.
-- Always define a **base case** so the recursion can start.
-- Compute values in increasing order when possible.
-- For probability recursion, total probability from a state equals the weighted
-  average of reachable next states.
+- Recursion is using smaller solutions of a problem to solve bigger ones. For instance, if let $$f(n)$$ be a solution for a problem considering $n$ parameters, we may be able to get $f(n+1)$ in terms of $f(n)$. $f(n)$ may be something like the number of certain arrangements of a sequence of orders considering the first $n$ of them, or something completely different. It depends on the problem!
+- Recursion needs a **state**, **transition rule**, and a **base case**:
+	- A state would be $f(n)$ or some expression of the number of solutions to a problem considering a certain number of parameters, in this case, $n$.
+	- A transition rule would be an equation involving several of these functions to get one in terms of another. For instance, $f(n) = 3f(n - 1) + f(n - 2)$ is a transition statement. Using this, we can get $f(n)$ solely by using $f(n - 1)$ and $f(n - 2)$.
+	- A **base case** may be defined as, say, $f(0)$ or $f(1)$, i.e, a very small case for a problem which one can solve manually *without* using recursion. 
 
-## Core Skills
+## Demonstration
 
-### Defining the State
+Consider the following combinatorial problem:
 
-Pick one variable that captures progress, such as position, number of steps, or
-remaining objects.
+> How many arrangements are there of $k$ distinct values?
 
-### Writing the Recurrence
+Clearly, this is just $k!$. However, to demonstrate recursion, we will transform this problem. Let $f(n)$ denote the number of arrangements of $n$ numbers where $1 \le n \le k$. If we know $f(k - 1)$, we can also find $f(k)$! Since $f(k)$ considers one more value than $f(k - 1)$, there are $k$ places to put that value for each of the $f(k - 1)$ arrangements considering only $k - 1$ values. Hence:
 
-Express the current value using smaller states, for example:
+$f(k) = kf(k - 1)$.
 
-$$f(n) = f(n-1) + f(n-2)$$
+For our base case, we consider $f(1)$. Obviously, there is only one way to arrange $1$ value, so $f(1) = 1$. Now writing out a couple more values using our transition we see:
 
-if each move is either 1 step or 2 steps.
+1) $f(2) = 2 \cdot f(1) = 2$
+2) $f(3) = 3 \cdot f(2) = 6$
+3) ...
 
-### Checking Base Cases
+We can see recursion also gives $f(k) = k!$, as desired.
 
-A recurrence without correct base values gives incorrect answers even if the
-formula is right.
+### Use Cases
+
+Recursion is often simpler but a more tedious method than conventional combinatorial techniques. One can find a couple base cases, a transition statement, and then use recursion to iteratively find their answer as they work upwards/downwards. 
 
 ## Worked Example
 
-How many ways can you climb a staircase of 5 steps if each move is 1 or 2
+> How many ways can you climb a staircase of 5 steps if each move is 1 or 2
 steps?
 
-Let $f(n)$ be the number of ways to reach step $n$.
+We will solve this using recursion. As always, you should begin with a base case, in this case, $f(1)$. Since there is only one step, $f(1) = 1$. For $f(2)$, since there are two steps, we can climb the staricase in two ways:
 
-- $f(0)=1$ (one way to stay at the start)
-- $f(1)=1$
-- $f(n)=f(n-1)+f(n-2)$ for $n\ge2$
+1) Take two steps of length $1$
+2) Take one step of length $2$.
 
-Then $f(2)=2$, $f(3)=3$, $f(4)=5$, $f(5)=8$, so the answer is $\boxed{8}$.
+Hence, $f(2) = 2$. Now, we come up with a transition statement. Observe that for $f(k)$ where $k \ge 3$, we can climb $k$ steps in two ways each using $f(k - 1)$ and $f(k - 2)$. That is,
+
+1) Take one step of length $2$ from $k - 2$ steps.
+2) Take one step of length $2$ from $k - 1$ steps.
+
+You may be wondering why we don't include the case "Take two steps of length $1$ from $k - 2$ steps." If we did, then we would overcount since that case ends at $k - 1$ steps, which we already take care of through case $2$. Using this, our transition statement can be derived:
+
+$f(k) = f(k - 1) + f(k - 2)$
+
+Using this until $k = 5$:
+
+1) $f(3) = f(1) + f(2) = 3$
+1) $f(4) = f(2) + f(3) = 5$
+1) $f(5) = f(3) + f(4) = \boxed8$
+
 
 ## Practice Problems
 
