@@ -513,5 +513,27 @@
         "kind": "none"
       }
     }
+    {
+      "uniqueId": "algebra-equations-and-inequalities-qm-am-gm-hm-power-mean-auto-0923",
+      "name": "American Mathematics Competitions 12 #0ibw",
+      "url": "https://usamoguide.com/",
+      "source": "American Mathematics Competitions 12",
+      "difficulty": "Medium",
+      "isStarred": false,
+      "tags": [
+        "QM-AM-GM-HM / Power Mean"
+      ],
+      "statement": "Problem:\nFind all ordered pairs of positive real numbers $(a,b)$ such that $(1+2a)(2+2b)(2a+b) = 32ab$.",
+      "interaction": {
+        "type": "none"
+      },
+      "solutionReveal": {
+        "mode": "inline",
+        "markdown": "Solution:\nBy AM-GM, $(1+2a)(2+2b)(2a+b) \\geq (2\\sqrt{1 \\cdot 2a})(2\\sqrt{2 \\cdot 2b})(2\\sqrt{2a \\cdot b}) = 32ab.$ Equality occurs when $1 = 2a = b$, so $(a,b) = (.5,1)$ is the only solution."
+      },
+      "solutionMetadata": {
+        "kind": "none"
+      }
+    }
   ]
 }
