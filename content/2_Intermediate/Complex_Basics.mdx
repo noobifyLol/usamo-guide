@@ -25,12 +25,16 @@ $i³ = ii² = i \\
  i ^ 6 = - 1$ etc.
 $\\$
 
-The powers of i go in cycles of $4: i, -1, -1, 1, 1, -1, -1, 1,$ etc.
+Powers of $i$ cycle every $4$ terms, so $\\i^{4 n} \;=\; i^{4} \;=\; 1 , \\i^{4 n+1} \;=\; i \;=\; \sqrt{-1} , $ $\\i^{4 n+2} \;=\; i^{2} \;=$  $- 1 , \\i^{4 n+3}=i^{3}=-i$ 
+
 
 $\textbf{Complex number:}$ A number of the form $z = a + bi$ where $a,b \in \mathbb{R}$ and $i^2 = -1$.
 (Pro Tip: This includes all Real Numbers and Imaginary Numbers)
 
 ## Algebra of Complex Numbers
+
+$\textbf{Real/Imag parts:}$ 
+For $z=a+bi$, $\Re(z)=a$ and $\Im(z)=b$ (the imaginary part excludes the factor $i$).
 
 $\textbf{Addition/Subtraction:}$
 
@@ -40,13 +44,60 @@ $\textbf{Multiplication:}$ (Just Simple Cross-Multiplication)
 
  $(a+bi)(c+di) = (ac-bd) + (ad+bc)i.$ 
 
-$\textbf{Real/Imag parts:}$ 
-For $z=a+bi$, $\Re(z)=a$ and $\Im(z)=b$ (the imaginary part excludes the factor $i$).
+Note: Divison will be covered later in this page, as it requires some more concepts.
 
-At this point, notice that isolating $\Re(z)$ and $\Im(z)$ early often simplifies equations and checks.
+At this point, notice that isolating $\Re(z)$ and $\Im(z)$ early often simplifies equations and checks, as it offers a way to convert a single complex equation into two real equations.
+
+### Example:
+
+Q: Let $z = a + bi$ and $2z + 3 = 14i + 5$, then find $a, b \\$
+A: Since $z = a + bi$, $2z+3 = 2a + 2bi + 3 = (2a + 3) + 2bi = 14i + 5 \\
+\implies 2a + 3 = 5 $ and $ 2b = 14 \\
+\implies a = 1, b= 7$
+
+For anyone who has handled vectors before, this might seem very similar, why? Because complex numbers are represented as vectors!! We will cover more about this in the next unit. 
+
+## Conjugates of Complex numbers
+We have learnt in surds that the conjugate of $\sqrt{a}+\sqrt{b}$ is $\sqrt{a}-\sqrt{b}$ since multiplying them gives $a-b$. Similarly for complex numbers, conjugate of $z = a + bi$ is $\bar{z} = a - bi$, This is as when we multiply them, we get: $\\
+z*\bar{z} = (a + bi)(a-bi) = a^2 -abi + abi -b^2 i^2 = a^2  + b^2
+$
+
+## Division of Complex Numbers
+
+Recall that dividing by a number is the same as multiplying by its reciprocal. So, $\frac{1}{a+bi}$ is what we need to make sense of first. Now, the trouble is that we don't want an imaginary number sitting in the denominator (it's messy and hard to work with!) 
+
+How do we fix this? We use the same trick we use with surds! Multiply both the numerator and denominator by the conjugate of the denominator.
+
+$$\frac{1}{a+bi} = \frac{1}{a+bi} \cdot \frac{a-bi}{a-bi} = \frac{a-bi}{a^2+b^2}$$
+
+Notice that the denominator $a^2 + b^2$ is now a **real** number. (This is an very important result. $z \cdot \bar{z}$ always gives us a real number.)
+
+For the general case, dividing $z_1 = a+bi$ by $z_2 = c+di$:
+
+$$\frac{a+bi}{c+di} = \frac{a+bi}{c+di} \cdot \frac{c-di}{c-di} = \frac{(a+bi)(c-di)}{c^2+d^2}$$
+
+Expanding the numerator using our multiplication rule:
+
+$$(a+bi)(c-di) = (ac+bd) + (bc-ad)i$$
+
+Hence, the final result is
+
+$$\frac{a+bi}{c+di} = \frac{(ac+bd)}{c^2+d^2} + \frac{(bc-ad)}{c^2+d^2}i$$
 
 
-## Ideas
+### Example:
+
+Q: Compute $\dfrac{3+2i}{1-4i}$ $\\$
+A: Multiply top and bottom by the conjugate of the denominator, which is $1+4i$:
+
+$$\frac{3+2i}{1-4i} \cdot \frac{1+4i}{1+4i} = \frac{(3+2i)(1+4i)}{1^2+4^2}$$
+
+Expanding the numerator: $(3+2i)(1+4i) = (3 - 8) + (12 + 2)i = -5 + 14i$
+
+And the denominator: $1 + 16 = 17$
+
+$$\therefore \quad \frac{3+2i}{1-4i} = \frac{-5+14i}{17} = -\frac{5}{17} + \frac{14}{17}i$$
+## Recap:
 - $z = a + bi$ with $i^2 = -1$.
 - Powers of $i$ repeat every $4$.
 - Real part is $a$, imaginary part is $b$.
