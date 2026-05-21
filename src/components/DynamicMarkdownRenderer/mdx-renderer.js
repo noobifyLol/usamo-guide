@@ -9,6 +9,7 @@ import { compile as xdmCompile } from 'xdm/lib/compile';
 import customRehypeKatex from '../../mdx-plugins/rehype-math';
 import rehypeSnippets from '../../mdx-plugins/rehype-snippets';
 import remarkToC from '../../mdx-plugins/remark-toc';
+import preprocessAsyBlocks from '../../mdx-plugins/preprocess-asy';
 
 // See: https://github.com/mdx-js/mdx/blob/main/packages/runtime/src/index.js
 const compile = async ({ markdown, problems }) => {
@@ -25,7 +26,9 @@ const compile = async ({ markdown, problems }) => {
 
     const tableOfContents = {};
     const compiledResult = await xdmCompile(
-      markdown.replace(/<!--/g, '{/* ').replace(/-->/g, '*/}'),
+      preprocessAsyBlocks(
+        markdown.replace(/<!--/g, '{/* ').replace(/-->/g, '*/}')
+      ),
       {
         remarkPlugins: [
           gfm,

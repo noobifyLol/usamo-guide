@@ -13,6 +13,7 @@ import remarkExtractAST from '../mdx-plugins/extract-mdast';
 import customRehypeKatex from '../mdx-plugins/rehype-math';
 import rehypeSnippets from '../mdx-plugins/rehype-snippets';
 import remarkToC from '../mdx-plugins/remark-toc';
+import preprocessAsyBlocks from '../mdx-plugins/preprocess-asy';
 import getGatsbyImage from './wrapped-gatsby-img-plugin';
 import { xdm } from './xdm';
 
@@ -40,7 +41,9 @@ export async function createXdmNode({ id, node, content }, api) {
 
   try {
     compiledResult = await xdm.compile(
-      content.replace(/<!--/g, '{/* ').replace(/-->/g, '*/}'),
+      preprocessAsyBlocks(
+        content.replace(/<!--/g, '{/* ').replace(/-->/g, '*/}')
+      ),
       {
         remarkPlugins: [
           gfm,

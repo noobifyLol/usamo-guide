@@ -76,6 +76,29 @@ $$
 \sum_{i=1}^{n} i = \frac{n(n+1)}{2}
 $$
 
+## Asymptote diagrams
+
+Use `[asy]...[/asy]` blocks to include Asymptote source in MDX. The block is preserved as a labeled, copyable source block so you can paste in geometry diagrams and diagram setup code directly.
+
+Example:
+
+[asy]
+import geometry;
+size(200);
+pair A = (-1.66, 0.33);
+pair B = (-9.61277, 1.19799);
+pair C = (-7.83974, 3.61798);
+pair D = (-4.88713, 4.14911);
+draw(circumcircle(A, B, C));
+draw(A--C);
+draw(A--D);
+draw(C--D);
+draw(B--C);
+draw(A--B);
+[/asy]
+
+Any Asymptote package or import lines inside the block stay as part of the source.
+
 ## Adding problems
 
 Use the Problems component to add practice sets. Example:

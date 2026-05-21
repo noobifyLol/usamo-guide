@@ -25,14 +25,14 @@ $$ \sigma(n) = \prod_{i=1}^{k}(1+p_i+p_i^2+\cdots+p_i^{e_i}) = \prod_{i=1}^{k}\f
 Observe that $d(n)$ and $\sigma(n)$ are both **multiplicative**, meaning that if $gcd(m,n)=1$, then $d(mn) = d(m)d(n)$ and $\sigma(mn) = \sigma(m)\sigma(n)$.
 ## Worked Example #1
 For how many positive integers $n \le 1000$ is $d(n)$ odd?
-### Solution
-Looking at the formula $d(n) = (e_1 + 1)(e_2 + 1)\cdot\cdot\cdot(e_k+1)$, we see that for $d(n)$ to be odd, each $e_i + 1$ term must be odd. In other, all of the exponents of $n$ must be even, which is equivalent to saying that $n$ is a perfect square. So the answer is $\boxed{31}$, since there are that many perfect squares under 1000.
-
-> In other words, $d(n)$ is odd if and only if $n$ is a perfect square, which is a useful fact
+> ### Solution
+> Looking at the formula $d(n) = (e_1 + 1)(e_2 + 1)\cdot\cdot\cdot(e_k+1)$, we see that for $d(n)$ to be odd, each $e_i + 1$ term must be odd. In other, all of the exponents of $n$ must be even, which is equivalent to saying that $n$ is a perfect square. So the answer is $\boxed{31}$, since there are that many perfect squares under 1000.
+>
+> > In other words, $d(n)$ is odd if and only if $n$ is a perfect square, which is a useful fact
 ## Worked Example #2
 Find the smallest number with exactly 14 positive divisors.
-### Solution
-Using the formula for $d(n)$, we see that any number with exactly 14 positive divisors must be of the form $p^{13}$ or $p^6\cdot q$, where $p,q$ are primes. It's easy to see that the smallest number of either form is $2^6\cdot 3=\boxed{192}$.
+> ### Solution
+> Using the formula for $d(n)$, we see that any number with exactly 14 positive divisors must be of the form $p^{13}$ or $p^6\cdot q$, where $p,q$ are primes. It's easy to see that the smallest number of either form is $2^6\cdot 3=\boxed{192}$.
 
 ## Practice Problems
 

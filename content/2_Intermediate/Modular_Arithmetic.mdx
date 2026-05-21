@@ -73,8 +73,8 @@ Instead of dealing with the entire number $45$, we should only deal with its rem
 
 which is a lot easier as the last digit of any positive integral power of $5$ is always $5$.
 
-## Focus Problem:
-
+> ## Focus Problem:
+>
 **Solution:**
 
 Let $N = \overline{abc} = 100a + 10b + c$ where $a \in \{1, \ldots, 9\}$ and $b, c \in \{0, \ldots, 9\}$.
@@ -98,10 +98,10 @@ Since $500 = 71 \cdot 7 + 3$, we have $500 \equiv 3 \pmod{7}$, so:
 $$10b + c \equiv -3 \equiv 4 \pmod{7}$$
 
 We need to count pairs $(b, c)$ with $b \in \{0, \ldots, 9\}$, $c \in \{0, \ldots, 9\}$ such that $10b + c \equiv 4 \pmod 7$.
-
-Note that $10b + c$ ranges over all integers from $0$ to $99$. Among any $7$ consecutive integers, exactly one is congruent to $4 \pmod{7}$. Since $100 = 14 \cdot 7 + 2$, the values $0, 1, \ldots, 99$ contain:
-- $14$ complete cycles of $7$, giving $14$ solutions.
-- A partial cycle $\{0, 1\}$ (i.e., $10b + c \in \{98, 99\}$), neither of which is $\equiv 4 \pmod{7}$.
-
-Therefore there are $\boxed{14}$ three-digit integers satisfying both conditions.
+>
+> Note that $10b + c$ ranges over all integers from $0$ to $99$. Among any $7$ consecutive integers, exactly one is congruent to $4 \pmod{7}$. Since $100 = 14 \cdot 7 + 2$, the values $0, 1, \ldots, 99$ contain:
+> - $14$ complete cycles of $7$, giving $14$ solutions.
+> - A partial cycle $\{0, 1\}$ (i.e., $10b + c \in \{98, 99\}$), neither of which is $\equiv 4 \pmod{7}$.
+>
+> Therefore there are $\boxed{14}$ three-digit integers satisfying both conditions.
 

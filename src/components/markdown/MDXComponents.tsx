@@ -1,5 +1,7 @@
 import * as React from 'react';
+import { useDarkMode } from '../../context/DarkModeContext';
 import Asterisk from '../Tooltip/Asterisk';
+import CodeBlock from './CodeBlock/CodeBlock';
 import TextTooltip from '../Tooltip/TextTooltip';
 import FocusProblem from './FocusProblem';
 import HTMLComponents from './HTMLComponents';
@@ -43,6 +45,23 @@ const MATHSPAN = props => {
   );
 };
 
+const AsyDiagram = ({ code }: { code?: string }) => {
+  const isDarkMode = useDarkMode();
+
+  return (
+    <div className="my-6 rounded-md border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-900/40">
+      <div className="border-b border-gray-200 px-4 py-2 text-sm font-medium text-gray-600 dark:border-gray-700 dark:text-gray-300">
+        Asymptote diagram source
+      </div>
+      <div className="p-4">
+        <CodeBlock className="language-asy" copyButton={true} isDarkMode={isDarkMode}>
+          {code ?? ''}
+        </CodeBlock>
+      </div>
+    </div>
+  );
+};
+
 export const components = {
   Spoiler,
   Info,
@@ -68,6 +87,7 @@ export const components = {
   Quiz,
   MATHDIV,
   MATHSPAN,
+  AsyDiagram,
 
   ...HTMLComponents,
 };

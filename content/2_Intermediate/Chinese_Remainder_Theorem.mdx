@@ -37,13 +37,13 @@ The sequences overlap at **8** and **23**. Notice that the distance between thes
 
 ### Example 1: Standard System Reconstruction
 
-Find the smallest positive integer $x$ that satisfies:
-
-$$
-x \equiv 2 \pmod{3} \\
-x \equiv 3 \pmod{5} \\
-x \equiv 2 \pmod{7}
-$$
+> Find the smallest positive integer $x$ that satisfies:
+>
+> $$
+> x \equiv 2 \pmod{3} \\
+> x \equiv 3 \pmod{5} \\
+> x \equiv 2 \pmod{7}
+> $$
 
 **Solution:**
 First, look for shortcuts. Notice that $x \equiv 2 \pmod{3}$ and $x \equiv 2 \pmod{7}$. Because 3 and 7 are coprime, we can directly combine these into a single congruence: $x \equiv 2 \pmod{21}$. 
@@ -58,6 +58,7 @@ Convert the first congruence into an equation: $x = 21k + 2$ for some integer $k
 $$
 21k + 2 \equiv 3 \pmod{5}
 $$
+
 Reduce $21 \pmod{5}$ to $1$:
 $$
 k + 2 \equiv 3 \pmod{5} \implies k \equiv 1 \pmod{5}
@@ -71,7 +72,7 @@ Thus, $x \equiv 23 \pmod{105}$. The smallest positive integer is $23$.
 
 ### Example 2: Finding Last Digits of Massive Powers
 
-What are the last two digits of $17^{2026}$?
+> What are the last two digits of $17^{2026}$?
 
 **Solution:**
 Finding the last two digits is equivalent to finding $x \equiv 17^{2026} \pmod{100}$. Computing modulo 100 directly is tedious, but $100 = 4 \times 25$, and $\gcd(4, 25) = 1$. We can compute the remainders modulo 4 and modulo 25 separately.
@@ -82,31 +83,33 @@ $$
 $$
 
 **Modulo 25:**
-We can use Euler's Totient Theorem. $\phi(25) = 25 \times (1 - 1/5) = 20$. 
-Therefore, $17^{20} \equiv 1 \pmod{25}$.
-We divide the exponent: $2026 = 20 \times 101 + 6$.
-$$
-17^{2026} \equiv (17^{20})^{101} \cdot 17^6 \equiv 1 \cdot 17^6 \pmod{25}
-$$
-Calculate $17^6 \pmod{25}$ step-by-step:
-$17 \equiv -8 \pmod{25}$
-$17^2 \equiv 64 \equiv 14 \pmod{25}$
-$17^4 \equiv 14^2 = 196 \equiv 21 \equiv -4 \pmod{25}$
-$17^6 = 17^4 \cdot 17^2 \equiv (-4) \cdot 14 = -56 \equiv 19 \pmod{25}$
-
-Now we have the system:
-$$
-x \equiv 1 \pmod{4} \\
-x \equiv 19 \pmod{25}
-$$
-From the second equation, $x = 25k + 19$. Substitute into the first:
-$$
-25k + 19 \equiv 1 \pmod{4} \\
-(1)k + 3 \equiv 1 \pmod{4} \\
-k \equiv -2 \equiv 2 \pmod{4}
-$$
-So, $k = 4j + 2$. Substitute back: $x = 25(4j + 2) + 19 = 100j + 69$.
-The last two digits are $69$.
+> We can use Euler's Totient Theorem. $\phi(25) = 25 \times (1 - 1/5) = 20$. 
+> Therefore, $17^{20} \equiv 1 \pmod{25}$.
+> We divide the exponent: $2026 = 20 \times 101 + 6$.
+> $$
+> 17^{2026} \equiv (17^{20})^{101} \cdot 17^6 \equiv 1 \cdot 17^6 \pmod{25}
+> $$
+> 17^{2026} \equiv (17^{20})^{101} \cdot 17^6 \equiv 1 \cdot 17^6 \pmod{25}
+> $$
+> Calculate $17^6 \pmod{25}$ step-by-step:
+> $17 \equiv -8 \pmod{25}$
+> $17^2 \equiv 64 \equiv 14 \pmod{25}$
+> $17^4 \equiv 14^2 = 196 \equiv 21 \equiv -4 \pmod{25}$
+> $17^6 = 17^4 \cdot 17^2 \equiv (-4) \cdot 14 = -56 \equiv 19 \pmod{25}$
+>
+> Now we have the system:
+> $$
+> x \equiv 1 \pmod{4} \\
+> x \equiv 19 \pmod{25}
+> $$
+> From the second equation, $x = 25k + 19$. Substitute into the first:
+> $$
+> 25k + 19 \equiv 1 \pmod{4} \\
+> (1)k + 3 \equiv 1 \pmod{4} \\
+> k \equiv -2 \equiv 2 \pmod{4}
+> $$
+> So, $k = 4j + 2$. Substitute back: $x = 25(4j + 2) + 19 = 100j + 69$.
+> The last two digits are $69$.
 
 ## Common Pitfalls
 

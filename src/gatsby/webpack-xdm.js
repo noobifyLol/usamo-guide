@@ -11,13 +11,16 @@ const remarkSlug = require('remark-slug');
 const remarkAutolinkHeadings = require('remark-autolink-headings');
 const { getOptions } = require('loader-utils');
 const { xdm } = require('./xdm');
+const preprocessAsyBlocks = require('../mdx-plugins/preprocess-asy');
 
 module.exports = function (code) {
   const callback = this.async();
   xdm
     .compile(
       {
-        contents: code.replace(/<!--/g, '{/* ').replace(/-->/g, '*/}'),
+        contents: preprocessAsyBlocks(
+          code.replace(/<!--/g, '{/* ').replace(/-->/g, '*/}')
+        ),
         path: this.resourcePath,
       },
       {
