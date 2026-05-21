@@ -76,6 +76,10 @@ $$
 \sum_{i=1}^{n} i = \frac{n(n+1)}{2}
 $$
 
+Common math commands used in olympiad writing, such as `\begin{align}`, `\boxed{}`, `\text{}`, `\mathbb{}`, and `\operatorname{}`, are supported in normal KaTeX math blocks.
+
+If you need more structure in displayed math, prefer `align`, `aligned`, or `cases` rather than raw `\usepackage` lines.
+
 ## Asymptote diagrams
 
 Use `[asy]...[/asy]` blocks to include Asymptote source in MDX. The block is preserved as a labeled, copyable source block so you can paste in geometry diagrams and diagram setup code directly.
@@ -95,9 +99,22 @@ draw(A--D);
 draw(C--D);
 draw(B--C);
 draw(A--B);
+label("$A$", A, E);
+label("$B$", B, W);
+label("$C$", C, NW);
+label("$D$", D, N);
+label("$7$", midpoint(A--C), SW);
+label("$5$", midpoint(A--D), NE);
+label("$3$", midpoint(C--D)+ dir(135)*0.3, N);
+label("$3$", midpoint(B--C)+dir(180)*0.3, NW);
+label("$8$", midpoint(A--B), S);
+markangle(Label("$60^\circ$", Relative(0.5)), A, B, C, radius=10);
+markangle(Label("$120^\circ$", Relative(0.5)), C, D, A, radius=10);
 [/asy]
 
-Any Asymptote package or import lines inside the block stay as part of the source.
+Common Asymptote imports such as `import geometry;`, `import graph;`, `import markers;`, `import fontsize;`, `import olympiad;`, and `import math;` are fine inside the block and will be preserved as source.
+
+You can also keep other setup lines like `size(...)`, `unitsize(...)`, and `pen` definitions in the block.
 
 ## Adding problems
 
