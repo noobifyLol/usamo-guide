@@ -40,24 +40,150 @@ $1+i = \sqrt{2}e^{i\pi/4}$. Then
 $(1+i)^{10} = (\sqrt{2})^{10} e^{i\cdot 10\pi/4} = 2^5 e^{i\pi/2} = 32i$.
 
 ## More Examples
-
-### Example 1: Power
+## Example 1: Power
 
 Compute $(2e^{i\pi/3})^4$.
 
-$2^4 e^{i4\pi/3} = 16\left(\cos\frac{4\pi}{3}+i\sin\frac{4\pi}{3}\right)$.
+$2^4e^{i4\pi/3}=16\left(\cos\frac{4\pi}{3}+i\sin\frac{4\pi}{3}\right)$.
 
-### Example 2: Product
+## Example 2: Product
 
 If $z_1=3e^{i\pi/6}$ and $z_2=2e^{i\pi/4}$, find $z_1z_2$.
 
-$6e^{i(\pi/6+\pi/4)} = 6e^{i5\pi/12}$.
+$6e^{i(\pi/6+\pi/4)}=6e^{i5\pi/12}$.
 
-### Example 3: Division
+## Example 3: Division
 
 Compute $\frac{4e^{i\pi/2}}{2e^{i\pi/3}}$.
 
-$2e^{i(\pi/2-\pi/3)} = 2e^{i\pi/6}$.
+$2e^{i(\pi/2-\pi/3)}=2e^{i\pi/6}$.
+
+## Example 4: Interesting 5th roots
+
+Take the expression $z_k=\left(2\mathrm{cis}\frac{\pi}{6}\right)^{1/5}$ represent the five fifth roots of $2\mathrm{cis}\frac{\pi}{6}$.
+
+Your goal is to compute $\prod_{k=0}^{4}z_k^2$.
+
+To start off, the product of all fifth roots just equals the original complex number itself:
+
+$\prod_{k=0}^{4}z_k=2\mathrm{cis}\frac{\pi}{6}$.
+
+Consequently, it follows that
+
+$\prod_{k=0}^{4}z_k^2=\left(2\mathrm{cis}\frac{\pi}{6}\right)^2=4\mathrm{cis}\frac{\pi}{3}$.
+
+## Example 5: When does it become imaginary? (It is advised to fully understand and remember this type of problem/solution!)
+
+Assume that $z=\sqrt3+i$.
+
+Your job is to find the smallest positive integer $n$ such that the following expression is purely imaginary: $z^n$ .
+
+After that, we can simply turn it to polar form:
+
+$z=2\mathrm{cis}\frac{\pi}{6}$.
+
+Next,
+
+$z^n=2^n\mathrm{cis}\frac{n\pi}{6}$.
+
+Now, observe that for $z^n$ to be purely imaginary,
+
+$\cos\frac{n\pi}{6}=0$.
+
+As a result, we have that
+
+$\frac{n\pi}{6}=\frac{\pi}{2}+k\pi$.
+
+So, we get our answer:
+
+$n=3+6k$.
+
+The smallest positive integer is $\boxed{3}$.
+
+## Example 6: Symmetry!
+
+Let $z=\mathrm{cis}\theta$.
+
+Given that $z^4+z^{-4}=0$, you must find ALL possible values of $\theta$ for $0<\theta<\pi$.
+
+We can first approach this problem by utilizing De Moivre, which results in:
+
+$z^4=\mathrm{cis}(4\theta)$ and $z^{-4}=\mathrm{cis}(-4\theta)$.
+
+Then, combining them gives
+
+$z^4+z^{-4}=2\cos(4\theta)$.
+
+And consequently,
+
+$2\cos(4\theta)=0$,
+
+which means
+
+$\cos(4\theta)=0$.
+
+So we have:
+
+$4\theta=\frac{\pi}{2}+k\pi$.
+
+And from here we can easily obtain our answers:
+
+$\theta=\frac{\pi}{8}+\frac{k\pi}{4}$.
+
+The values in $(0,\pi)$ are
+
+$\frac{\pi}{8},\frac{3\pi}{8},\frac{5\pi}{8},\frac{7\pi}{8}$.
+
+## Example 7: Binomial Expressions! (This you also need to fully understand and remember as this trick is very useful!)
+
+Your job is to compute $(1+i)^{12}$.
+
+At first, the expression looks daunting, but we can tackle it using the techniques we learned in this module. First, we turn $1+i$ into polar form:
+
+$1+i=\sqrt2\mathrm{cis}\frac{\pi}{4}$.
+
+Then, we can do the following:
+
+$(1+i)^{12}=(\sqrt2)^{12}\mathrm{cis}\left(12\cdot\frac{\pi}{4}\right)$.
+
+Simplifying the expression, we get,
+
+$=64\mathrm{cis}(3\pi)$.
+
+Because $\cos3\pi=-1$ and $\sin3\pi=0$, we get our answer:
+
+$(1+i)^{12}=-64$.
+
+Note: Can you interpret this problem geometrically? Think out of the box!
+
+## Example 8: Roots of Unity + Polar Form!
+
+Let $\omega=\mathrm{cis}\frac{2\pi}{9}$.
+
+Your job is to compute the following expression: $(\omega+\omega^8)^2+(\omega^2+\omega^7)^2+(\omega^4+\omega^5)^2$.
+
+First off, because $\omega^8=\omega^{-1}$, $\omega^7=\omega^{-2}$, and $\omega^5=\omega^{-4}$, we can use
+
+$\omega^k+\omega^{-k}=2\cos\left(\frac{2\pi k}{9}\right)$.
+
+From here, the expression simply becomes
+
+$4\cos^2\frac{2\pi}{9}+4\cos^2\frac{4\pi}{9}+4\cos^2\frac{8\pi}{9}$.
+
+And using
+
+$\cos^2x=\frac{1+\cos(2x)}{2}$,
+
+this just simplifies to
+
+$2\left(3+\cos\frac{2\pi}{9}+\cos\frac{4\pi}{9}+\cos\frac{8\pi}{9}\right)$.
+
+Then, using the following identity
+
+$\cos\frac{2\pi}{9}+\cos\frac{4\pi}{9}+\cos\frac{8\pi}{9}=0$,
+
+we get that the final value is $6$.
+
 
 ## Strategy Checklist
 
