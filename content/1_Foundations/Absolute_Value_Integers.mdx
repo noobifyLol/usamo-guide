@@ -1,18 +1,702 @@
 ---
 id: absolute-value-integers
 title: Absolute Value and Integer Operations
-author: USAMO Guide Team
+author: Pranav Ramesh
 description: Navigating negative numbers and distance on a number line without sign errors.
 prerequisites: []
 ---
 
-<IncompleteSection />
+# Absolute Value and Integer Operations
 
-## Overview
+## Integer Operations
 
-Many AMC 8 mistakes come from sign errors with negative numbers or
-misunderstanding absolute value. This module builds reliable habits for integer
-arithmetic and introduces absolute value as distance on the number line.
+Integers are the positive and negative whole numbers, including zero:
+
+$$
+\{\dots,-3,-2,-1,0,1,2,3,\dots\}
+$$
+
+### Addition and Subtraction
+
+- Same signs: add and keep the sign.
+- Different signs: subtract and keep the sign of the larger absolute value.
+
+For example:
+
+$$
+-7 + 3 = -4
+$$
+
+
+### Multiplication and Division
+
+- Same signs give a positive result.
+- Different signs give a negative result.
+
+For example:
+
+$$
+(-4)(-5)=20
+$$
+
+$$
+(-4)(5)=-20
+$$
+
+
+## Absolute Value
+
+The absolute value of a number is its distance from $0$ on the number line.
+
+Absolute value is written using vertical bars:
+
+$$
+|x|
+$$
+
+For example:
+
+$$
+|5| = 5
+$$
+
+and:
+
+$$
+|-5| = 5
+$$
+
+because both $5$ and $-5$ are $5$ units away from $0$.
+
+In general:
+
+$$
+|x|=
+\begin{cases}
+x, & x \ge 0 \\
+-x, & x < 0
+\end{cases}
+$$
+
+## Properties of Absolute Value
+
+### Product Rule
+
+$$
+|ab| = |a||b|
+$$
+
+Example:
+
+$$
+|-3 \cdot 4| = |-12| = 12
+$$
+
+and:
+
+$$
+|-3||4| = 3 \cdot 4 = 12
+$$
+
+### Quotient Rule
+
+$$
+\left|\frac{a}{b}\right|
+=
+\frac{|a|}{|b|}
+\quad (b \ne 0)
+$$
+
+### Triangle Inequality
+
+$$
+|a+b| \le |a| + |b|
+$$
+
+This means the distance traveled together cannot exceed the sum of the individual distances.
+
+> ### Example 1: 
+>Find all solutions to the equation |x ^ 2 - 3x| = 4 .
+Solution: We can split the problem into two cases: either 
+$$ 
+x ^ 2 - 3x = 4 \\
+\text{ or } \\
+x ^ 2 - 3x = - 4 
+$$
+The first case yields the solutions 4 and -1; the second yields $ \frac{3 \pm i \sqrt{7}}{2} $ If we restrict ourselves to real solutions, only 4 and -1 are acceptable.
+
+> ### Example 2: Solve the equation |(x + 2) / (3x - 1)| = 5
+This gives two cases:
+
+$$
+\frac{x+2}{3x-1}=5
+\quad \text{or} \quad
+\frac{x+2}{3x-1}=-5
+$$
+
+For the first case:
+
+$$
+x+2=5(3x-1)
+$$
+
+$$
+x+2=15x-5
+$$
+
+$$
+7=14x
+$$
+
+$$
+x=\frac12
+$$
+
+For the second case:
+
+$$
+x+2=-5(3x-1)
+$$
+
+$$
+x+2=-15x+5
+$$
+
+$$
+16x=3
+$$
+
+$$
+x=\frac{3}{16}
+$$
+
+Since:
+
+$$
+3x-1 \ne 0
+$$
+
+we must have:
+
+$$
+x \ne \frac13
+$$
+
+Both solutions are valid.
+
+Thus, the solutions are:
+
+$$
+\boxed{x=\frac12 \text{ or } x=\frac{3}{16}}
+$$
+
+## Sigma Notation
+
+Sigma notation represents sums.
+
+The Greek letter sigma is written as:
+
+$$
+\sum
+$$
+
+For example:
+
+$$
+\sum_{k=1}^{5} k
+$$
+
+means:
+
+$$
+1+2+3+4+5
+$$
+
+which equals:
+
+$$
+15
+$$
+
+### Example
+
+$$
+\sum_{n=1}^{4} n^2
+$$
+
+means:
+
+$$
+1^2+2^2+3^2+4^2
+$$
+
+which equals:
+
+$$
+30
+$$
+
+## Important Summation Formulae
+
+### Sum of the First \(n\) Natural Numbers
+
+$$
+\sum_{k=1}^{n} k
+=
+\frac{n(n+1)}{2}
+$$
+
+<details>
+<summary><strong>Proof</strong></summary>
+
+Let:
+
+$$
+S = 1+2+3+\dots+n
+$$
+
+Write the sum in reverse order:
+
+$$
+S = n+(n-1)+(n-2)+\dots+1
+$$
+
+Adding the two equations term by term:
+
+$$
+2S=(n+1)+(n+1)+\dots+(n+1)
+$$
+
+There are \(n\) terms, so:
+
+$$
+2S=n(n+1)
+$$
+
+Thus:
+
+$$
+S=\frac{n(n+1)}{2}
+$$
+
+</details>
+
+### Sum of the Squares of the First \(n\) Natural Numbers
+
+$$
+\sum_{k=1}^{n} k^2
+=
+\frac{n(n+1)(2n+1)}{6}
+$$
+
+<details>
+<summary><strong>Proof Sketch</strong></summary>
+
+One way to prove this formula is by mathematical induction.
+
+Assume:
+
+$$
+\sum_{k=1}^{n} k^2
+=
+\frac{n(n+1)(2n+1)}{6}
+$$
+
+Then:
+
+$$
+\sum_{k=1}^{n+1} k^2
+=
+\frac{n(n+1)(2n+1)}{6}+(n+1)^2
+$$
+
+Factoring and simplifying gives:
+
+$$
+\frac{(n+1)(n+2)(2n+3)}{6}
+$$
+
+which matches the formula with \(n+1\).
+
+Thus, the formula holds for all positive integers \(n\).
+
+</details>
+
+### Sum of the Cubes of the First \(n\) Natural Numbers
+
+$$
+\sum_{k=1}^{n} k^3
+=
+\left(
+\frac{n(n+1)}{2}
+\right)^2
+$$
+
+<details>
+<summary><strong>Interesting Observation</strong></summary>
+
+The sum of cubes equals the square of the sum of the first \(n\) natural numbers.
+
+That is:
+
+$$
+1^3+2^3+\dots+n^3
+=
+(1+2+\dots+n)^2
+$$
+
+For example:
+
+$$
+1^3+2^3+3^3
+=
+1+8+27
+=
+36
+$$
+
+and:
+
+$$
+(1+2+3)^2
+=
+6^2
+=
+36
+$$
+
+This identity can also be proved using induction.
+
+</details>
+
+## Pi Notation
+
+Pi notation represents products.
+
+The Greek capital pi is written as:
+
+$$
+\prod
+$$
+
+For example:
+
+$$
+\prod_{k=1}^{4} k
+$$
+
+means:
+
+$$
+1 \cdot 2 \cdot 3 \cdot 4
+$$
+
+which equals:
+
+$$
+24
+$$
+
+Another example:
+
+$$
+\prod_{n=2}^{5} n
+$$
+
+means:
+
+$$
+2 \cdot 3 \cdot 4 \cdot 5
+$$
+
+which equals:
+
+$$
+120
+$$
+
+## Factorials
+
+Factorials are products of consecutive positive integers.
+
+The factorial of a positive integer \(n\) is written as:
+
+$$
+n!
+$$
+
+and defined by:
+
+$$
+n! = 1 \cdot 2 \cdot 3 \cdots n
+$$
+
+For example:
+
+$$
+5! = 1 \cdot 2 \cdot 3 \cdot 4 \cdot 5 = 120
+$$
+
+and:
+
+$$
+7! = 5040
+$$
+
+### Factorials Using Pi Notation
+
+Factorials can be written compactly using pi notation:
+
+$$
+n! = \prod_{k=1}^{n} k
+$$
+
+For example:
+
+$$
+4! = \prod_{k=1}^{4} k = 24
+$$
+
+## Important Factorial Values
+
+$$
+1! = 1
+$$
+
+$$
+2! = 2
+$$
+
+$$
+3! = 6
+$$
+
+$$
+4! = 24
+$$
+
+$$
+5! = 120
+$$
+
+<details>
+<summary><strong>Proof on Why \(0! = 1\)</strong></summary>
+By definition:
+
+$$
+0! = 1
+$$
+
+This may seem strange at first, but it keeps factorial patterns consistent.
+
+For example:
+
+$$
+5! = 5 \cdot 4!
+$$
+
+so:
+
+$$
+4! = \frac{5!}{5}
+$$
+
+Similarly:
+
+$$
+1! = 1 \cdot 0!
+$$
+
+Since:
+
+$$
+1! = 1
+$$
+
+we must have:
+
+$$
+0! = 1
+$$
+</details>
+
+## Factorial Growth
+
+Factorials grow extremely quickly.
+
+For example:
+
+$$
+10! = 3628800
+$$
+
+and:
+
+$$
+20! \approx 2.43 \times 10^{18}
+$$
+
+## Common Factorial Identities
+
+### Recursive Formula
+
+$$
+n! = n(n-1)!
+$$
+
+For example:
+
+$$
+6! = 6 \cdot 5!
+$$
+
+
+### Cancellation
+
+$$
+\frac{n!}{(n-1)!} = n
+$$
+
+Example:
+
+$$
+\frac{7!}{6!} = 7
+$$
+
+
+### Factorial Ratios
+
+$$
+\frac{n!}{(n-r)!}
+=
+n(n-1)(n-2)\cdots(n-r+1)
+$$
+
+For example:
+
+$$
+\frac{8!}{5!}
+=
+8 \cdot 7 \cdot 6
+=
+336
+$$
+
+## Signum Function
+
+The signum function tells the sign of a number.
+
+It is written as:
+
+$$
+\operatorname{sgn}(x)
+$$
+
+and defined by:
+
+$$
+\operatorname{sgn}(x)=
+\begin{cases}
+1, & x>0 \\
+0, & x=0 \\
+-1, & x<0
+\end{cases}
+$$
+
+For example:
+
+$$
+\operatorname{sgn}(-8)=-1
+$$
+
+
+## Floor Function / Integer Part Function / Greatest Integer function
+
+The Greatest Integer function, also called the floor function, gives the greatest integer less than or equal to a number. (Hence the name Greatest Integer function)
+
+It is written as:
+
+$$
+\lfloor x \rfloor
+$$
+
+For example:
+
+$$
+\lfloor 3.7 \rfloor = 3
+$$
+
+and:
+
+$$
+\lfloor -2.3 \rfloor = -3
+$$
+
+because \(-3\) is the greatest integer less than or equal to \(-2.3\).
+
+## Ceiling Function
+
+The ceiling function gives the smallest integer greater than or equal to a number.
+
+It is written as:
+
+$$
+\lceil x \rceil
+$$
+
+For example:
+
+$$
+\lceil 3.2 \rceil = 4
+$$
+
+and:
+
+$$
+\lceil -2.3 \rceil = -2
+$$
+
+## Fractional Part Function
+
+The fractional part of a number is the part remaining after removing the integer part.
+
+It is written as:
+
+$$
+\{x\}
+$$
+
+and defined by:
+
+$$
+\{x\}=x-\lfloor x \rfloor
+$$
+
+For example:
+
+$$
+\{3.75\}=3.75-3=0.75
+$$
+
+and:
+
+$$
+\{-2.3\}=-2.3-(-3)=0.7
+$$
+
+## Relationships Between These Functions
+
+The floor function and fractional part function satisfy:
+
+$$
+x = \lfloor x \rfloor + \{x\}
+$$
+
+For example:
+
+$$
+5.8 = 5 + 0.8
+$$
 
 ## Key Ideas
 
