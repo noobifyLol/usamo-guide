@@ -221,7 +221,6 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
       description: 'Identities, equations, and unit circle applications.',
       items: [
         'trig-unit-circle',
-        'trig-identities',
         'trig-angle-addition',
         'trig-product-sum',
         'trig-equations',
