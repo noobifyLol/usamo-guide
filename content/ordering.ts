@@ -197,7 +197,11 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
     {
       name: 'Coordinate Geometry',
       description: 'Analytic methods, Shoelace formula, and coordinate-based proofs.',
-      items: ['coordinate-geometry', 'shoelace-formula'],
+      items: [
+        'coordinate-geometry', 
+        'shoelace-theorem-p1',
+        'shoelace-theorem-p2'
+      ],
     },
     {
       name: 'Inequalities',

@@ -401,20 +401,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     if (problemInfo.hasOwnProperty(node.uniqueId)) {
       const a = node,
         b = problemInfo[node.uniqueId];
-      // Some problems with no corresponding module gets put into extraProblems.json.
-      // If a problem has a module, then it should be removed from extraProblems.json.
-      if (!a.module || !b.module) {
-        throw new Error(
-          `The problem ${node.uniqueId} is in both extraProblems.json and in another module at the same time. Remove this problem from extraProblems.json.`
-        );
-      }
       if (a.name !== b.name || a.url !== b.url || a.source !== b.source) {
         throw new Error(
-          `The problem ${node.uniqueId} appears in both ${
-            node.module.frontmatter.id
-          } and ${
-            problemInfo[node.uniqueId].module.frontmatter.id
-          } but has different information! They need to have the same name / url / source.`
+          `The problem ${node.uniqueId} appears more than once but has different information! They need to have the same name / url / source.`
         );
       }
     }
