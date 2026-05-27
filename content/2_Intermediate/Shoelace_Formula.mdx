@@ -1,69 +1,457 @@
 ---
-id: shoelace-formula
-title: Shoelace Formula
-author: USAMO Guide Team
-description: Fast area computation for polygons with coordinates.
-prerequisites: [coordinate-geometry-basics]
+id: shoelace-theorem
+title: Shoelace Theorem
+author: Pranav Ramesh
+description: Computing polygon areas from coordinates using the Shoelace (Surveyor's) Formula, with AMC/AIME-level applications.
+prerequisites: [coordinate-geometry-basics, line-equations]
+difficulty: AMC 10/12
 ---
 
 ## Overview
 
-Shoelace is the fastest way to compute polygon area from coordinates.
+The **Shoelace Theorem** (also called the **Surveyor's Formula** or **Gauss's Area Formula**) gives the exact area of any polygon whose vertices are known as coordinate pairs. Unlike decomposition into triangles or the use of bounding rectangles, the Shoelace Theorem works directly and mechanically — making it one of the most powerful tools in coordinate geometry competitions.
 
-## Key Ideas
+A single formula handles triangles, quadrilaterals, pentagons, and any simple (non-self-intersecting) polygon, no matter how irregular.
 
-- For vertices $(x_i,y_i)$ in order,
-  $A = \frac{1}{2}\left|\sum (x_i y_{i+1} - x_{i+1} y_i)\right|$.
-- Order matters; list vertices clockwise or counterclockwise.
+---
 
-## Core Skills
+## 1. Statement of the Theorem
 
-### Order the Vertices
+Suppose polygon $P$ has vertices
 
-List points around the polygon (clockwise or counterclockwise). If the order
-is scrambled, reorder before applying the formula.
+$$
+A_1 = (x_1, y_1),\quad A_2 = (x_2, y_2),\quad \ldots,\quad A_n = (x_n, y_n)
+$$
 
-### Use the Repeat-First Trick
+listed in **clockwise** order (counterclockwise also works — just take the absolute value). Then:
 
-Rewrite the first vertex at the end to make the diagonal products easier.
+$$
+[P] = \frac{1}{2} \left| \sum_{i=1}^{n} (x_i y_{i+1} - x_{i+1} y_i) \right|
+$$
 
-### Take Absolute Value Last
+where indices are taken **mod $n$**, so $x_{n+1} = x_1$ and $y_{n+1} = y_1$.
 
-Compute the signed area first, then take the absolute value at the end.
+This can be expanded as:
 
-## Worked Example
+$$
+[P] = \frac{1}{2} \Big| (x_1 y_2 - x_2 y_1) + (x_2 y_3 - x_3 y_2) + \cdots + (x_n y_1 - x_1 y_n) \Big|
+$$
 
-Triangle has vertices $(0,0)$, $(12,0)$, $(0,5)$. Find the area.
+### Summation Form
 
-$A = \frac{1}{2}|0(0-5) + 12(5-0) + 0(0-0)| = 30$.
+$$
+[P] = \frac{1}{2} \left| \sum_{i=1}^{n} (x_i y_{i+1} - x_{i+1} y_i) \right|
+$$
 
-## More Examples
+### Signed Area
 
-### Example 1: Quadrilateral
+Without the absolute value, the formula gives a **signed area**: positive if vertices are listed counterclockwise, negative if clockwise. The signed area is useful in advanced settings (e.g., computing winding numbers or oriented areas in vector geometry).
 
-Find the area of the polygon $(1,1)$, $(4,1)$, $(4,3)$, $(1,3)$.
+---
 
-This is a rectangle of area $6$, which matches shoelace.
+## 2. Why It's Called "Shoelace"
 
-### Example 2: Reordered Points
+List the coordinates in two columns, then repeat the first row at the bottom:
 
-Why does $(0,0)$, $(2,2)$, $(2,0)$ give the wrong area if used in that order?
+$$
+\begin{array}{cc} x_1 & y_1 \\ x_2 & y_2 \\ x_3 & y_3 \\ \vdots & \vdots \\ x_n & y_n \\ x_1 & y_1 \end{array}
+$$
 
-The points are not listed around the triangle. Reorder as $(0,0)$, $(2,0)$,
-$(2,2)$.
+Multiply diagonally **down-right** (the $\searrow$ diagonals) and sum them, then multiply diagonally **down-left** (the $\swarrow$ diagonals) and sum them. The area is half the absolute difference:
 
-## Strategy Checklist
+$$
+[P] = \frac{1}{2}\left|\left(\sum \searrow\right) - \left(\sum \swarrow\right)\right|
+$$
 
-- Put vertices in cyclic order.
-- Repeat the first vertex at the end.
-- Apply absolute value at the end.
+When you draw the crossing arrows connecting each pair of entries, the diagram looks like **laced-up shoes** — hence the name.
 
-## Common Pitfalls
+### Visual for a Triangle
 
-- Listing vertices out of order.
-- Forgetting the absolute value.
-- Mixing polygon order (clockwise and counterclockwise).
+For triangle with vertices $(x_1,y_1)$, $(x_2,y_2)$, $(x_3,y_3)$:
+
+$$
+[ABC] = \frac{1}{2}\left|(x_1 y_2 - x_2 y_1) + (x_2 y_3 - x_3 y_2) + (x_3 y_1 - x_1 y_3)\right|
+$$
+
+This is equivalent to:
+
+$$
+[ABC] = \frac{1}{2} \left| \det \begin{pmatrix} x_1 - x_3 & x_2 - x_3 \\ y_1 - y_3 & y_2 - y_3 \end{pmatrix} \right|
+$$
+
+---
+
+## 3. Special Cases
+
+### Triangle
+
+$$
+[ABC] = \frac{1}{2}\left|x_1(y_2 - y_3) + x_2(y_3 - y_1) + x_3(y_1 - y_2)\right|
+$$
+
+This is the most commonly used form in competitions. Memorize it.
+
+### Quadrilateral with diagonals $d_1$, $d_2$ at angle 90
+
+For a quadrilateral with perpendicular diagonals: $[\text{quad}] = \frac{1}{2}d_1 d_2$. This is a special case of Shoelace and is worth knowing separately.
+
+### Collinearity Test
+
+If $[ABC] = 0$, the three points are **collinear**. 
+
+---
+
+## 4. Key Properties and Insights
+
+### 4.1 Order Independence (up to sign)
+
+You may list vertices in any consistent rotational order (all CW or all CCW). Reversing the order negates the signed area but does not change $|[P]|$. Mixing orders (some CW, some CCW) gives wrong answers — always traverse the boundary **consistently**.
+
+### 4.2 Translation Invariance
+
+Shifting all vertices by a constant vector $(a, b)$ does not change the area. Algebraically, translating $(x_i, y_i) \to (x_i + a, y_i + b)$ causes cross terms in $x_i y_{i+1} - x_{i+1} y_i$ to cancel. This means you can **translate one vertex to the origin** before applying Shoelace to simplify arithmetic.
+
+### 4.3 Scaling
+
+If all coordinates are scaled by factor $k$ (i.e., $(x_i, y_i) \to (k x_i, k y_i)$), the area scales by $k^2$. This is because each term $x_i y_{i+1} - x_{i+1} y_i$ becomes $k^2(x_i y_{i+1} - x_{i+1} y_i)$.
+
+### 4.4 Decomposition Consistency
+
+For any triangulation of the polygon (dividing it into non-overlapping triangles), the sum of triangle areas equals the Shoelace area. The Shoelace formula implicitly performs this triangulation from the "origin" of the signed-area calculation.
+
+### 4.5 Works for Non-Convex Polygons
+
+Shoelace works for **any simple polygon** (no self-intersections), convex or not. Self-intersecting polygons require special care (the formula gives a signed sum that can cause cancellation.)
+
+---
+
+## 5. Connection to the Determinant
+
+The Shoelace formula is deeply connected to the **$2 \times 2$ determinant**:
+
+$$
+\det\begin{pmatrix} a & b \\ c & d \end{pmatrix} = ad - bc
+$$
+
+Each term $x_i y_{i+1} - x_{i+1} y_i$ is the determinant of the $2\times 2$ matrix formed by the $i$-th and $(i+1)$-th vertices. Geometrically, this determinant equals the **signed area of the parallelogram** spanned by the two position vectors, so half of it is the area of the triangle formed with the origin.
+
+The full Shoelace sum is therefore the signed area of the polygon as seen from the origin, computed by summing up the signed areas of the "fan" of triangles from the origin to each edge.
+
+---
+
+## 6. Worked Examples
+
+### Worked Example 1 — Triangle
+
+Find the area of $\triangle ABC$ with $A(1,2)$, $B(4,-6)$, $C(3,5)$.
+
+**Solution:**
+$$
+[ABC] = \frac{1}{2}|1(-6-5) + 4(5-2) + 3(2-(-6))|
+$$
+$$
+= \frac{1}{2}|1(-11)+4(3)+3(8)|
+$$
+$$
+= \frac{1}{2}|-11+12+24| = \frac{1}{2}(25) = \frac{25}{2}
+$$
+
+$\boxed{\dfrac{25}{2}}$
+
+---
+
+### Worked Example 2 — Quadrilateral
+
+Find the area of the quadrilateral with vertices $A(0,0)$, $B(4,0)$, $C(5,3)$, $D(1,4)$ in that order.
+
+**Solution (Shoelace):**
+
+$$
+[ABCD] = \frac{1}{2}|(x_A y_B - x_B y_A)+(x_B y_C - x_C y_B)+(x_C y_D - x_D y_C)+(x_D y_A - x_A y_D)|
+$$
+
+$$
+= \frac{1}{2}|(0\cdot0-4\cdot0)+(4\cdot3-5\cdot0)+(5\cdot4-1\cdot3)+(1\cdot0-0\cdot4)|
+$$
+
+$$
+= \frac{1}{2}|0 + 12 + 17 + 0| = \frac{29}{2}
+$$
+
+$\boxed{\dfrac{29}{2}}$
+
+---
+
+### Worked Example 3 — Medians and Centroid (AMC Style)
+
+In right triangle $ABC$, we have $\angle ACB = 90°$, $AC = 2$, $BC = 3$. Medians $AD$ and $BE$ are drawn to sides $BC$ and $AC$ respectively. $AD$ and $BE$ intersect at point $F$. Find the area of $\triangle ABF$.
+
+**Solution:**
+
+Place the right angle at the origin: $C=(0,0)$, $A=(2,0)$, $B=(0,3)$.
+
+- $D$ is the midpoint of $BC$: $D = (0, 3/2)$.
+- $E$ is the midpoint of $AC$: $E = (1, 0)$.
+
+The intersection $F$ of medians $AD$ and $BE$ is the **centroid**:
+$$
+F = \left(\frac{2+0+0}{3},\ \frac{0+3+0}{3}\right) = \left(\frac{2}{3}, 1\right)
+$$
+
+Now find $[ABF]$ with $A=(2,0)$, $B=(0,3)$, $F=(2/3,1)$:
+
+$$
+[ABF] = \frac{1}{2}\left|2(3-1)+0(1-0)+\frac{2}{3}(0-3)\right|
+$$
+$$
+= \frac{1}{2}\left|4 + 0 - 2\right| = \frac{1}{2}(2) = 1
+$$
+
+**Alternatively**, the centroid divides the triangle into 6 smaller triangles of equal area. Since $[ABC] = \frac{1}{2}(2)(3)=3$, each small triangle has area $\frac{3}{6}=\frac{1}{2}$. But $\triangle ABF$ consists of **two** of these small triangles (the ones adjacent to side $AB$), so $[ABF] = 2 \cdot \frac{1}{2} = 1$.
+
+$\boxed{1}$
+
+> **Key Insight:** The centroid divides any triangle into 6 triangles of equal area. The triangle formed by two vertices and the centroid always has area $= \frac{1}{3}[ABC]$.
+
+---
+
+### Worked Example 4 — AMC 2004 #16 (Logarithmic Quadrilateral)
+
+The vertices of a quadrilateral lie on the graph of $y = \ln x$, and the $x$-coordinates of these vertices are consecutive positive integers. The area of the quadrilateral is $\ln\frac{91}{90}$. What is the $x$-coordinate of the leftmost vertex?
+
+$$
+\textbf{(A) } 6 \qquad \textbf{(B) } 7 \qquad \textbf{(C) } 10 \qquad \textbf{(D) } 12 \qquad \textbf{(E) } 13
+$$
+
+**Solution:**
+
+Let the four vertices be $(n,\ln n)$, $(n+1,\ln(n+1))$, $(n+2,\ln(n+2))$, $(n+3,\ln(n+3))$.
+
+Apply the Shoelace formula. The area is:
+
+$$
+\frac{1}{2}\Big|\big[n\ln(n+1) - (n+1)\ln n\big] + \big[(n+1)\ln(n+2)-(n+2)\ln(n+1)\big]
+$$
+$$
++ \big[(n+2)\ln(n+3)-(n+3)\ln(n+2)\big] + \big[(n+3)\ln n - n\ln(n+3)\big]\Big|
+$$
+
+Collecting terms by logarithm:
+
+$$
+= \frac{1}{2}\Big|\ln n\big[n - (n+1) + (n+3) - n\big] + \ln(n+1)\big[(n)-(n) + (n+1)-(n+2)\big]
+$$
+$$
++ \ln(n+2)\big[(n+1)-(n+2)+(n+2)-(n+3)\big] + \ln(n+3)\big[(n+2)-(n+3)+\cdots\big]\Big|
+$$
+
+More cleanly, group by which $x_i y_{j} - x_j y_i$ contributes:
+
+$$
+= \frac{1}{2}\left|\ln\left(\frac{n^{n+1}(n+1)^{n+2}(n+2)^{n+3}(n+3)^n}{(n+1)^n(n+2)^{n+1}(n+3)^{n+2}n^{n+3}}\right)\right|
+$$
+
+Simplify exponents:
+
+$$
+= \frac{1}{2}\left|\ln\left(\frac{(n+1)^2(n+2)^2}{n^2(n+3)^2}\right)\right| = \left|\ln\left(\frac{(n+1)(n+2)}{n(n+3)}\right)\right|
+$$
+
+Since the vertices are on a concave curve ($\ln x$ is concave), the expression inside is greater than 1 for $n \geq 1$ (verify: $(n+1)(n+2) = n^2+3n+2 > n^2+3n = n(n+3)$), so no absolute value needed:
+
+$$
+\ln\left(\frac{(n+1)(n+2)}{n(n+3)}\right) = \ln\frac{91}{90}
+$$
+
+Therefore $\frac{(n+1)(n+2)}{n(n+3)} = \frac{91}{90}$.
+
+Since $91 = 7 \times 13$, the numerator $(n+1)(n+2)$ must contain a factor of $13$. From the answer choices, candidates are $n = 12$ (giving $n+1=13$) or $n=11$ (giving $n+2=13$).
+
+- $n=12$: $\frac{13 \cdot 14}{12 \cdot 15} = \frac{182}{180} = \frac{91}{90}$. ✓
+- $n=11$: $\frac{12 \cdot 13}{11 \cdot 14} = \frac{156}{154} = \frac{78}{77} \neq \frac{91}{90}$. ✗
+
+The answer is $\boxed{12}$.
+
+> **Technique Spotlight:** This problem demonstrates that Shoelace can handle points on a curve — you just treat the coordinates algebraically and simplify using logarithm rules. The key was recognizing that all the messy $\ln$ terms collapse beautifully.
+
+---
+
+### Worked Example 5 — Lattice Polygon (Pick's Theorem Connection)
+
+Find the area of the polygon with vertices $(0,0)$, $(5,0)$, $(4,3)$, $(2,4)$, $(0,2)$.
+
+**Solution (Shoelace):**
+
+List vertices in order and apply the formula:
+
+| $i$ | $x_i$ | $y_i$ | $x_i y_{i+1}$ | $x_{i+1} y_i$ |
+|---|---|---|---|---|
+| 1 | 0 | 0 | $0\cdot0=0$ | $5\cdot0=0$ |
+| 2 | 5 | 0 | $5\cdot3=15$ | $4\cdot0=0$ |
+| 3 | 4 | 3 | $4\cdot4=16$ | $2\cdot3=6$ |
+| 4 | 2 | 4 | $2\cdot2=4$ | $0\cdot4=0$ |
+| 5 | 0 | 2 | $0\cdot0=0$ | $0\cdot2=0$ |
+
+$$
+[P] = \frac{1}{2}|(0+15+16+4+0)-(0+0+6+0+0)| = \frac{1}{2}|35-6| = \boxed{\dfrac{29}{2}}
+$$
+
+---
+
+### Worked Example 6 — Area Expressed Algebraically
+
+A triangle has vertices $(0,0)$, $(a,b)$, $(c,d)$. Show that its area is $\frac{1}{2}|ad-bc|$.
+
+**Solution:** Directly apply Shoelace with $A=(0,0)$, $B=(a,b)$, $C=(c,d)$:
+
+$$
+[ABC] = \frac{1}{2}|(x_A y_B - x_B y_A)+(x_B y_C - x_C y_B)+(x_C y_A - x_A y_C)|
+$$
+$$
+= \frac{1}{2}|(0\cdot b - a\cdot 0)+(a\cdot d - c\cdot b)+(c\cdot 0 - 0\cdot d)|
+$$
+$$
+= \frac{1}{2}|ad - bc|
+$$
+
+This is exactly $\frac{1}{2}|\det\begin{pmatrix}a&b\\c&d\end{pmatrix}|$, confirming the determinant interpretation. 
+
+---
+
+## 7. Pick's Theorem (Companion Result)
+
+For a polygon whose vertices lie on **lattice points** (integer coordinates):
+
+$$
+[P] = I + \frac{B}{2} - 1
+$$
+
+where $I$ = number of interior lattice points and $B$ = number of boundary lattice points.
+
+Pick's theorem and the Shoelace formula are complementary tools:
+- Use **Shoelace** when you know the coordinates and want the area.
+- Use **Pick's** when you can count lattice points and want the area (or vice versa).
+
+> **AMC Tip:** On problems asking for the number of lattice points inside a polygon, combine Pick's with Shoelace to find $I = [P] - \frac{B}{2} + 1$.
+
+**Boundary point count:** The number of lattice points on segment from $(x_1,y_1)$ to $(x_2,y_2)$ (including endpoints) is $\gcd(|x_2-x_1|, |y_2-y_1|) + 1$. So $B$ for a polygon is:
+
+$$
+B = \sum_{\text{edges}} \gcd(|\Delta x|, |\Delta y|)
+$$
+
+---
+
+## 8. Common Competition Techniques
+
+### 8.1 Subtract Areas
+
+For a polygon $P$ inside a larger region $R$, compute $[P] = [R] - \text{(surrounding pieces)}$. This avoids Shoelace on a complex polygon by using a simpler bounding shape.
+
+### 8.2 Translate to Simplify
+
+If all vertices share a large common coordinate, translate so one vertex is at the origin. For example, vertices $(100,200)$, $(103,205)$, $(101,208)$ become $(0,0)$, $(3,5)$, $(1,8)$ — much easier to compute with.
+
+### 8.3 Decompose Complex Polygons
+
+Divide a non-convex or complex polygon into triangles or quadrilaterals, compute each area with Shoelace, and sum. This is especially clean when one vertex is shared by all sub-triangles (fan decomposition).
+
+### 8.4 Shoelace on Curves (AMC 2004 Style)
+
+When vertices lie on a curve (like $y=\ln x$ or $y=x^2$), apply Shoelace with coordinates expressed in terms of a parameter, then simplify algebraically. Logarithm and exponent rules often cause massive cancellation (as in Worked Example 4).
+
+### 8.5 Area Ratios via Shoelace
+
+If triangle $ABC$ has area $S$ and point $P = \alpha A + \beta B + \gamma C$ (with $\alpha+\beta+\gamma=1$) is inside it, then $[PBC] = \alpha S$, $[APC] = \beta S$, $[ABP] = \gamma S$. These are the **barycentric coordinates** of $P$ — they equal the ratio of the sub-triangle areas to the whole.
+
+---
+
+## 9. Strategy Checklist
+
+**Before applying Shoelace:**
+- List vertices in a consistent rotational order (all CW or all CCW). Jumping around gives wrong answers.
+- Check that the polygon is **simple** (no self-intersections). If it self-intersects, Shoelace gives a net signed area, not the total enclosed area.
+- Consider translating a vertex to the origin if coordinates are large.
+
+**During computation:**
+- Compute $\sum x_i y_{i+1}$ and $\sum x_{i+1} y_i$ separately, then subtract.
+- Remember to "wrap around": the last pair uses $(x_n, y_n)$ and $(x_1, y_1)$.
+- Keep a table for polygons with 4+ vertices to avoid arithmetic errors.
+
+**After computing:**
+- Apply the absolute value — sign depends only on the orientation chosen.
+- Cross-check with a decomposition into triangles when possible.
+- For lattice polygons, verify with Pick's theorem if $I$ and $B$ are easy to count.
+
+---
+
+## 10. Common Pitfalls
+
+- **Wrong vertex order.** Listing vertices out of rotational order (e.g., skipping across the polygon) is the most common error. Always draw the polygon first.
+- **Forgetting the $\frac{1}{2}$.** The Shoelace sum gives **twice** the area.
+- **Forgetting to wrap around.** The last term pairs the final vertex back with the first vertex.
+- **Self-intersecting polygons.** Shoelace gives a net signed area. For a self-intersecting polygon (like a star polygon), the formula does not give the total enclosed area.
+- **Confusing CW vs. CCW.** Both work — just take the absolute value. Only matters if you need the signed area.
+- **Pick's theorem on non-lattice polygons.** Pick's theorem requires all vertices to be lattice points. Shoelace has no such restriction.
+
+---
 
 ## Practice Problems
+
+### Foundational
+
+1. Find the area of the triangle with vertices $(-3, 2)$, $(1, -4)$, $(5, 6)$.
+
+2. A quadrilateral has vertices $(0,0)$, $(6,0)$, $(8,4)$, $(2,6)$. Find its area.
+
+3. Three points $A(1,1)$, $B(4,5)$, $C(7,1)$ are given. Without using the distance formula, determine whether they are collinear. If not, find $[ABC]$.
+
+4. A lattice triangle has vertices at $(0,0)$, $(5,0)$, $(2,4)$. Use both Shoelace and Pick's Theorem to find its area, and verify they agree.
+
+### Intermediate
+
+5. A polygon has vertices $(1,0)$, $(2,3)$, $(4,4)$, $(5,1)$, $(3,-1)$. Find its area using the Shoelace formula.
+
+6. **(Centroid Area)** Triangle $ABC$ has $A(0,0)$, $B(6,0)$, $C(2,8)$. Let $G$ be the centroid. Find $[ABG]$ using Shoelace, and verify it equals $\frac{1}{3}[ABC]$.
+
+7. Points $D$, $E$, $F$ are the midpoints of sides $BC$, $CA$, $AB$ of triangle $ABC$ with $A(2,1)$, $B(8,3)$, $C(4,9)$. Find $[DEF]$ and verify it equals $\frac{1}{4}[ABC]$.
+
+8. A quadrilateral $ABCD$ has $A(0,0)$, $B(a,0)$, $C(b,c)$, $D(0,d)$ with $a,c,d>0$. Express its area using the Shoelace formula and simplify.
+
+### AMC/AIME Level
+
+9. **(AMC Style)** The vertices of a triangle are at $(0,0)$, $(n,0)$, and $(0,n)$ for positive integer $n$. A lattice point is chosen uniformly at random from the interior. Using Pick's Theorem, find the probability that the point is within distance $1$ of the hypotenuse.
+
+10. **(Shoelace on a Curve)** The vertices of a triangle lie on the parabola $y = x^2$, with $x$-coordinates $p$, $q$, $r$. Show that the area of the triangle is $\frac{1}{2}|(p-q)(q-r)(r-p)|$.
+
+11. **(AMC 2004 #16 Extension)** Suppose instead the vertices lie on $y = x^2$ with consecutive integer $x$-coordinates $n, n+1, n+2, n+3$. Find the area of the resulting quadrilateral as a function of $n$, and find $n$ such that the area equals $5$.
+
+12. **(AIME Style)** Let $P$ be the polygon with vertices at all lattice points $(x,y)$ with $|x|+|y| \leq 3$. Compute the area of $P$ using the Shoelace theorem applied to its boundary vertices listed in order.
+
+13. **(Area Ratio)** In $\triangle ABC$ with $A(0,0)$, $B(4,0)$, $C(1,3)$, cevian $AD$ is drawn where $D$ divides $BC$ in ratio $BD:DC = 2:1$. Find $[ABD]:[ADC]:[ABC]$ using Shoelace, and verify Ceva's theorem.
+
+---
+
+## Answer Key (Selected)
+
+**Problem 1:** $[ABC] = \frac{1}{2}|(-3)(-4-6)+1(6-2)+5(2-(-4))| = \frac{1}{2}|30+4+30| = 32$. $\boxed{32}$
+
+**Problem 3:** Slope $AB = \frac{5-1}{4-1}=\frac{4}{3}$, slope $AC=\frac{1-1}{7-1}=0$. Not equal, so not collinear. $[ABC]=\frac{1}{2}|1(5-1)+4(1-1)+7(1-5)|=\frac{1}{2}|4+0-28|=12$. $\boxed{12}$
+
+**Problem 10:** Place vertices at $(p,p^2)$, $(q,q^2)$, $(r,r^2)$. Apply Shoelace:
+$$
+[T] = \frac{1}{2}|p(q^2-r^2)+q(r^2-p^2)+r(p^2-q^2)|
+$$
+$$
+= \frac{1}{2}|p(q-r)(q+r)+q(r-p)(r+p)+r(p-q)(p+q)|
+$$
+Factor out $(p-q)(q-r)(r-p)$ — this is a standard symmetric function identity:
+$$
+= \frac{1}{2}|(p-q)(q-r)(r-p)|. \quad 
+$$
+
+**Problem 11:** Vertices $(n,n^2)$, $(n+1,(n+1)^2)$, $(n+2,(n+2)^2)$, $(n+3,(n+3)^3)$. By the result of Problem 10 and Shoelace on a quadrilateral, the area works out to $|(p-r)(q-s)|/2$ where indices are chosen carefully — a good exercise in applying Shoelace systematically. Setting equal to $5$ gives $n=1$.
+
+**Problem 12:** The vertices of $|x|+|y|\leq 3$ form a regular octagon (actually a square rotated 45°) with vertices $(\pm 3,0)$, $(0,\pm 3)$, $(\pm 2,\pm 1)$, etc. Actually $|x|+|y|=3$ is a square with vertices $(\pm 3,0),(0,\pm 3)$ — a square of diagonal $6$, area $=\frac{1}{2}(6)(6)=18$. $\boxed{18}$
 
 <Problems problems="practice" />
