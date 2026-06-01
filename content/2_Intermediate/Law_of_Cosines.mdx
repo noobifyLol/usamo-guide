@@ -28,15 +28,21 @@ Let's lay out some notation first. In any triangle $\triangle ABC$, we label eac
  
 The Law of Cosines states:
  
-$$c^2 = a^2 + b^2 - 2ab\cos C$$
+$$
+c^2 = a^2 + b^2 - 2ab\cos C
+$$
  
 There's nothing special about $C$; by symmetry, you get one version at each angle:
  
-$$a^2 = b^2 + c^2 - 2bc\cos A \qquad\qquad b^2 = a^2 + c^2 - 2ac\cos B$$
+$$
+a^2 = b^2 + c^2 - 2bc\cos A \qquad\qquad b^2 = a^2 + c^2 - 2ac\cos B
+$$
  
 And if it's the *angle* you want rather than a side, just solve for the cosine:
  
-$$\cos C = \frac{a^2 + b^2 - c^2}{2ab}$$
+$$
+\cos C = \frac{a^2 + b^2 - c^2}{2ab}
+$$
  
 > **Why "generalized Pythagorean theorem"?** Set $C = 90^\circ$. Then $\cos C = 0$, the last term cancels to 0, and you're left with $c^2 = a^2 + b^2$. The $-2ab\cos C$ term is indeed the *correction* for the angle not being right. And note: if $C$ is obtuse then $\cos C < 0$, so the term *adds* to $c$, which is basically what you'd expect from opening the angle wider.
  
@@ -88,9 +94,9 @@ $$c^2 = a^2\left(\sin^2 C + \cos^2 C\right) + b^2 - 2ab\cos C = a^2 + b^2 - 2ab\
 
 The Law of Cosines is useful in a variety of ways, one obvious case being finding a missing side length given two side lengths and a known angle between them. However, there is quite some nuance in how it's used at more advanced levels of competition. For instance:
 
-1) You may get a side length in terms of a variable and use that new side length as new information to solve further. If this is unclear, consider the examples we present, and as always, practice!
-2) Solve for the cosine of the angle. You may have similar triangles, and knowing the cosine of that angle can be used in other triangles where that angle is also present.
-3) Noticing congruent, complementary, or supplementary angles and using how their cosines relate to the cosine of the original angle (e.g. $\cos(180^\circ - \theta) = -\cos\theta$).
+- You may get a side length in terms of a variable and use that new side length as new information to solve further. If this is unclear, consider the examples we present, and as always, practice!
+- Solve for the cosine of the angle. You may have similar triangles, and knowing the cosine of that angle can be used in other triangles where that angle is also present.
+- Noticing congruent, complementary, or supplementary angles and using how their cosines relate to the cosine of the original angle (e.g. $\cos(180^\circ - \theta) = -\cos\theta$).
 
 > Always match $a$ with $A$, $b$ with $B$, and $c$ with $C$. The side opposite to the angle is the one being solved for in $a^2=b^2+c^2-2bc\cos A$.
 
