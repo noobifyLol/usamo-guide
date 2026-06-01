@@ -227,8 +227,6 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
         'trig-product-sum',
         'trig-equations',
         'trig-inverse-functions',
-        'trig-triangle-laws',
-        'trig-patterns',
       ],
     },
     {
@@ -237,12 +235,9 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
       items: [
         'complex-basics',
         'complex-algebra',
-        'complex-conjugates',
         'complex-plane',
         'complex-polar-form',
-        'complex-geometry',
         'roots-of-unity',
-        'roots-of-unity-advanced',
         'complex-trigonometry',
       ],
     },
