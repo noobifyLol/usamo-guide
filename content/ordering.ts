@@ -129,7 +129,6 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
       name: 'Advanced Algebra',
       description: 'Quadratics, systems, and polynomial identities for AMC 10/12.',
       items: [
-        'advanced-algebra',
         'higher-power-factorizations',
         'sophie-germain-identity',
         'newton-sums',
@@ -173,10 +172,8 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
       description: 'Modular arithmetic, CRT, and divisibility techniques.',
       items: [
         'modular-arithmetic',
-        'number-theory-intermediate',
         'chinese-remainder-theorem',
         'euler-totient-theorem',
-        // promoted from foundations
         'chicken-mcnugget',
       ],
     },
@@ -191,10 +188,11 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
         'tangent-circles',
         'arc-and-chord',
         'descartes-theorem',
-        // promoted from foundations
         'triangle-medians-centroid',
         'angle-bisectors',
         'altitudes-orthocenter',
+        'law-of-sines',
+        'law-of-cosines',
       ],
     },
     {
@@ -210,12 +208,9 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
       name: 'Inequalities',
       description: 'Algebraic and geometric inequality techniques.',
       items: [
-        'inequalities',
-
-        // promoted from foundations
+        'inequalities-foundations',
         'amgm-inequality',
         'cauchy-schwarz',
-        'inequalities-foundations',
       ],
     },
     {
@@ -234,10 +229,6 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
         'trig-inverse-functions',
         'trig-triangle-laws',
         'trig-patterns',
-
-        // promoted from foundations
-        'law-of-sines',
-        'law-of-cosines',
       ],
     },
     {
