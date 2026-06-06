@@ -1,105 +1,362 @@
 ---
-id: sequences-series
+id: sequences-series-intermediate
 title: Sequences and Series
-author: USAMO Guide Team
-description: Arithmetic and geometric sequences, recursion, and telescoping sums.
-prerequisites: ["advanced-algebra"]
+author: Mehul Biala
+description: A comprehensive deep-dive into AMC 10/12 sequence strategies, including structure recognition, advanced telescoping, fixed-point recurrences, polynomial summation, and Fibonacci identities.
+prerequisites: ["algebraic-manipulations", "polynomials-fundamentals"]
 ---
 
 ## Overview
 
-Sequences appear across AMC and AIME. Recognize standard forms and convert
-between recursive and closed forms.
+This module heavily prioritizes high-yield contest techniques. While arithmetic and geometric progressions are foundational, partial fractions and telescoping form a massive portion of the AMC 10/12 sequence distribution. Furthermore, advanced limits, periodicity, and recursive transformations may also appear on the AMC 12.
 
-Recurrences are especially common: compute small cases, write a relation, and
-solve or iterate to the target.
+---
 
-## Key Ideas
+## 1. Pattern Recognition & Finite Differences
 
-- Arithmetic sequence: $a_n=a_1+(n-1)d$.
-- Geometric sequence: $a_n=a_1 r^{n-1}$.
-- Telescoping sums simplify when terms cancel in pairs.
-- Recurrences model "build from smaller" structures.
-- Linear recurrences with constant coefficients can be solved via
-	characteristic equations.
+Before utilizing advanced algebra, you must be able to spot classic sequences hidden in plain sight. If you do not recognize the sequence instantly, you will waste time trying to force a formula that doesn't fit.
 
-## Core Skills
+* **Geometric Progression (GP):** $2, 6, 18, 54, \dots$ (Constant ratio)
+* **Perfect Squares:** $1, 4, 9, 16, 25, \dots$
+* **Perfect Cubes:** $1, 8, 27, 64, \dots$
+* **Triangular Numbers:** $1, 3, 6, 10, 15, \dots$ (Formula: $T_n = \frac{n(n+1)}{2}$)
 
-### Convert Recurrence to Closed Form
+AMC questions frequently disguise these inside larger expressions. If a sequence formula is not immediately obvious, build a **Finite Difference** table. 
 
-Compute initial terms, guess a form, then verify by induction or by solving
-the characteristic equation.
+<div style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0' }}>
+  <svg viewBox="0 0 400 120" width="100%" height="120" xmlns="http://www.w3.org/2000/svg">
+    <text x="40" y="20" textAnchor="middle" fontFamily="sans-serif" fill="white">2</text>
+    <text x="120" y="20" textAnchor="middle" fontFamily="sans-serif" fill="white">7</text>
+    <text x="200" y="20" textAnchor="middle" fontFamily="sans-serif" fill="white">16</text>
+    <text x="280" y="20" textAnchor="middle" fontFamily="sans-serif" fill="white">29</text>
+    <text x="360" y="20" textAnchor="middle" fontFamily="sans-serif" fill="white">46</text>
 
-### Spot Telescoping
+    <line x1="55" y1="30" x2="65" y2="45" stroke="#60a5fa" strokeWidth="2" />
+    <line x1="105" y1="30" x2="95" y2="45" stroke="#60a5fa" strokeWidth="2" />
+    <text x="80" y="60" textAnchor="middle" fontFamily="sans-serif" fill="#60a5fa">5</text>
 
-Rewrite terms with partial fractions or differences so cancellation is visible.
+    <line x1="135" y1="30" x2="145" y2="45" stroke="#60a5fa" strokeWidth="2" />
+    <line x1="185" y1="30" x2="175" y2="45" stroke="#60a5fa" strokeWidth="2" />
+    <text x="160" y="60" textAnchor="middle" fontFamily="sans-serif" fill="#60a5fa">9</text>
 
-### Identify Growth Rates
+    <line x1="215" y1="30" x2="225" y2="45" stroke="#60a5fa" strokeWidth="2" />
+    <line x1="265" y1="30" x2="255" y2="45" stroke="#60a5fa" strokeWidth="2" />
+    <text x="240" y="60" textAnchor="middle" fontFamily="sans-serif" fill="#60a5fa">13</text>
 
-Use ratios to determine whether sequences are arithmetic, geometric, or
-neither.
+    <line x1="295" y1="30" x2="305" y2="45" stroke="#60a5fa" strokeWidth="2" />
+    <line x1="345" y1="30" x2="335" y2="45" stroke="#60a5fa" strokeWidth="2" />
+    <text x="320" y="60" textAnchor="middle" fontFamily="sans-serif" fill="#60a5fa">17</text>
 
-## Worked Example
+    <line x1="95" y1="70" x2="105" y2="85" stroke="#f472b6" strokeWidth="2" />
+    <line x1="145" y1="70" x2="135" y2="85" stroke="#f472b6" strokeWidth="2" />
+    <text x="120" y="100" textAnchor="middle" fontFamily="sans-serif" fill="#f472b6">4</text>
 
-If $a_1=3$ and $a_{n+1}=2a_n+1$, compute $a_3$.
+    <line x1="175" y1="70" x2="185" y2="85" stroke="#f472b6" strokeWidth="2" />
+    <line x1="225" y1="70" x2="215" y2="85" stroke="#f472b6" strokeWidth="2" />
+    <text x="200" y="100" textAnchor="middle" fontFamily="sans-serif" fill="#f472b6">4</text>
 
-Then $a_2=2\cdot3+1=7$, and $a_3=2\cdot7+1=15$.
+    <line x1="255" y1="70" x2="265" y2="85" stroke="#f472b6" strokeWidth="2" />
+    <line x1="305" y1="70" x2="295" y2="85" stroke="#f472b6" strokeWidth="2" />
+    <text x="280" y="100" textAnchor="middle" fontFamily="sans-serif" fill="#f472b6">4</text>
+  </svg>
+</div>
 
-## Recurrence Toolkit
+* If the **first difference** is constant, the sequence is Linear (an Arithmetic Progression).
+* If the **second difference** is constant, the sequence is Quadratic.
+* If the **third difference** is constant, the sequence is Cubic.
 
-### Step-by-step method
+### Sequence as a Polynomial
+Taking differences always lowers the degree of a polynomial sequence by 1. For example, if a sequence is defined by $a_n = n^3$, taking the difference of consecutive terms yields:
+$$ a_{n+1} - a_n = (n+1)^3 - n^3 = 3n^2 + 3n + 1 $$
+Notice how the cubic sequence produced a quadratic difference sequence!
 
-1. Compute small cases to spot a pattern.
-2. Write a recurrence that reduces size $n$ to smaller sizes.
-3. Use base cases to compute the desired term or solve explicitly.
+---
 
-### Engineering Induction (pattern guessing)
+## 2. Sigma Manipulation & Power Sums
 
-Compute a few values, guess a closed form, then use it to answer the problem.
-It is fast but not always rigorous.
+You must be fluid in splitting sums apart using the linearity of summation. For example, $\sum_{k=1}^{n}(k^2 + 2k + 1)$ instantly becomes $\sum k^2 + 2\sum k + \sum 1$. 
 
-### Linear Recurrence (constant coefficients)
+Memorize the foundational power sums:
+* **Sum of Integers:** $\sum_{k=1}^{n} k = \frac{n(n+1)}{2}$
+* **Sum of Squares:** $\sum_{k=1}^{n} k^2 = \frac{n(n+1)(2n+1)}{6}$
+* **Sum of Cubes:** $\sum_{k=1}^{n} k^3 = \left(\frac{n(n+1)}{2}\right)^2$
 
-If $f(n) = c_1 f(n-1) + c_2 f(n-2)$, try $f(n)=r^n$ to get the characteristic
-equation $r^2 - c_1 r - c_2 = 0$. Solve for $r$, then combine the solutions and
-fit constants using base cases.
+### Summation by Pairing
+A surprisingly common AMC trick is evaluating large sequences by pairing symmetric terms. Gauss famously evaluated $1 + 2 + \dots + 100$ by pairing $(1+100) + (2+99) + \dots$, giving 50 pairs of 101.
+This applies to harder versions as well:
+$$ \sum_{k=1}^{100} k(101-k) $$
+By recognizing that term $k=1$ equals term $k=100$, you can exploit the sequence's symmetry to halve the computation time or reduce it into paired blocks.
 
-## More Examples
+---
 
-### Example 1: Domino Tilings
+## 3. Geometric Series & Arithmetico-Geometric Series
 
-Let $f(n)$ be the number of ways to tile a $2\times n$ board with $1\times2$
-dominoes. The last placement is either a vertical domino (leaving $2\times(n-1)$)
-or two horizontal dominoes (leaving $2\times(n-2)$). So
+### The Finite Geometric Series Derivation
+While the infinite geometric series formula ($S = \frac{a}{1-r}$) is well known, AMC problems test the **finite** derivation far more frequently.
 
-$$f(n)=f(n-1)+f(n-2).$$
+**The Derivation Method:**
+Let $S = 1 + r + r^2 + \dots + r^n$.
+1. Multiply the entire sum by the common ratio $r$:
+   $$ rS = r + r^2 + \dots + r^{n+1} $$
+2. Subtract the second equation from the first. All the middle terms will perfectly cancel out:
+   $$ (1 - r)S = 1 - r^{n+1} $$
+3. Isolate $S$:
+   $$ S = \frac{1 - r^{n+1}}{1 - r} $$
 
-With $f(1)=1$, $f(2)=2$, we get $f(5)=8$.
+### Recognizing Hidden Geometric Series
+A common AMC trap is disguising a geometric series using offset exponents or combined bases. For example, evaluate $\sum_{k=1}^{\infty} \frac{5^k}{3^{k+1}}$. 
+Isolate the index $k$ into a single fraction:
+$$ \frac{1}{3} \sum_{k=1}^{\infty} \left(\frac{5}{3}\right)^k $$
+*(Because $5/3 > 1$, this specific series diverges to infinity, demonstrating why isolating the ratio is critical!)*
 
-### Example 2: Binary Strings
+### The Arithmetico-Geometric Series (AGS)
+An AGS is formed by multiplying an Arithmetic Progression term-by-term with a Geometric Progression (e.g., $\sum \frac{n}{2^n}$). Never memorize the formula. Instead, apply the exact shift-and-subtract derivation used above for geometric series to eliminate the arithmetic component. 
 
-Let $a_n$ be the number of binary strings of length $n$ with no consecutive 1s.
-If the last bit is 0, there are $a_{n-1}$ choices; if the last bit is 1, the
-previous bit must be 0, giving $a_{n-2}$ choices. So $a_n=a_{n-1}+a_{n-2}$.
+---
 
-### Example 3: Telescoping Sum
+## 4. Telescoping & Partial Fractions
 
-Compute $\sum_{k=1}^{n} \frac{1}{k(k+1)}$.
+Because AMC writers love partial fractions, they deserve major attention. When you see a polynomial denominator like $\sum \frac{3}{(k+1)(k+4)}$, immediately split it: $\frac{1}{k+1} - \frac{1}{k+4}$. 
 
-Use $\frac{1}{k(k+1)}=\frac{1}{k}-\frac{1}{k+1}$ to get $1-\frac{1}{n+1}$.
+### How to Invent a Telescoping Series
+Most students only know how to recognize telescoping series. The elite AMC/AIME skill is *creating* them out of stubborn fractions. Use algebraic long division or $+0$ tricks:
 
-## Strategy Checklist
+* **Trick 1:** $\frac{k}{k+1} = \frac{k+1-1}{k+1} = 1 - \frac{1}{k+1}$
+* **Trick 2:** $\frac{k+3}{k+1} = \frac{k+1+2}{k+1} = 1 + \frac{2}{k+1}$
+* **Trick 3:** $\frac{k^2}{k+1} = \frac{k^2-1+1}{k+1} = \frac{(k-1)(k+1)+1}{k+1} = k - 1 + \frac{1}{k+1}$
 
-- Classify the sequence (arithmetic, geometric, recurrence).
-- Compute a few terms before guessing a formula.
-- Use characteristic equations for linear recurrences.
-- Look for cancellation in sums.
+### Non-Adjacent Telescoping (The Survival Trap)
+Not everything cancels perfectly. In the sum $\sum_{k=1}^{100} \left(\frac{1}{k} - \frac{1}{k+2}\right)$, many students incorrectly assume all middle terms vanish. 
+Write it out explicitly:
+$$ \left(\frac{1}{1} - \frac{1}{3}\right) + \left(\frac{1}{2} - \frac{1}{4}\right) + \left(\frac{1}{3} - \frac{1}{5}\right) + \dots $$
+Notice that $\frac{1}{1}$ and $\frac{1}{2}$ survive at the beginning, while $-\frac{1}{101}$ and $-\frac{1}{102}$ survive at the end. 
 
-## Common Pitfalls
+### Bounding and Estimation
+To estimate $\sum_{k=1}^{100} \frac{1}{k^2}$ without exact computation, bound it using a telescoping series you *can* compute: $\frac{1}{k^2} < \frac{1}{k(k-1)}$. Then telescope the larger bound to prove the original sum is strictly bounded.
 
-- Off-by-one errors in index shifts.
-- Using a closed form without verifying base cases.
-- Mixing arithmetic and geometric formulas.
+---
+
+## 5. Sequence Transformations
+
+When a recurrence looks terrifying, the trick is to transform the sequence by measuring the distance from its fixed point.
+
+Take $a_{n+1} = \frac{a_n + 2}{a_n + 5}$. 
+Students often attack this directly and get bogged down in massive rational expressions. Instead:
+1. **Find the fixed point:** Set $L = \frac{L+2}{L+5} \implies L^2 + 5L = L + 2 \implies L^2 + 4L - 2 = 0$.
+2. **Measure distance from fixed point:** Let the roots be $\alpha$ and $\beta$. Transform the recurrence by evaluating $\frac{a_{n+1} - \alpha}{a_{n+1} - \beta}$. 
+3. This completely neutralizes the complex recurrence, turning it into a simple geometric progression. This is arguably more important than solving repeated characteristic roots on the AMC 12.
+
+---
+
+## 6. Limits, Fixed Points, and Equilibrium
+
+While AMC 10 focuses on calculating specific terms, AMC 12 is obsessed with the asymptotic behavior of recurrences. The unifying theme for all these problems is **$L = f(L)$**. If a sequence converges, its infinite tail is identical to the whole.
+
+* **Infinite Nested Radicals:** $x = \sqrt{3 + \sqrt{3 + \sqrt{3 + \dots}}}$ 
+  Since the tail is identical to the whole, substitute $x$: $x = \sqrt{3 + x} \implies x^2 - x - 3 = 0$.
+* **Infinite Continued Fractions:** $x = 1 + \frac{1}{1 + \frac{1}{1 + \dots}}$
+  Substitute $x$: $x = 1 + \frac{1}{x} \implies x^2 - x - 1 = 0$.
+* **Recursive Limits:** $a_{n+1} = \frac{a_n + 2}{3}$. 
+  Assume convergence to $L$. Then $L = \frac{L+2}{3} \implies 3L = L + 2 \implies 2L = 2 \implies L = 1$.
+
+---
+
+## 7. Fibonacci & Special Sequences
+
+The AMC 12 loves the Fibonacci sequence ($F_n = F_{n-1} + F_{n-2}$, where $F_1=1, F_2=1$). Do not rely on computing terms manually; you must know the structural identities:
+
+* **Sum Identity:** $\sum_{i=1}^n F_i = F_{n+2} - 1$
+* **Cassini's Identity:** $F_{n+1}F_{n-1} - F_n^2 = (-1)^n$
+* **Double Index Formula:** $F_{2n} = F_n L_n$ (where $L_n$ is the Lucas Number)
+* **Binet's Formula / Approximation:** $F_n = \frac{\phi^n - \psi^n}{\sqrt{5}}$. Because $\psi^n$ approaches zero rapidly, $F_n \approx \frac{\phi^n}{\sqrt{5}}$ (where $\phi = \frac{1+\sqrt{5}}{2}$).
+
+---
+
+## 8. Periodicity & Roots of Unity
+
+Many seemingly infinite AMC 12 problems are actually periodicity problems.
+
+* **Linear Periodicity:** $a_{n+1} = 1 - a_n$. This implies $a_{n+2} = 1 - a_{n+1} = 1 - (1 - a_n) = a_n$. The sequence has Period 2.
+* **Modular Periodicity:** $2^n \pmod 7$. The sequence is $2, 4, 1, 2, 4, 1 \dots$. It has Period 3.
+* **Roots of Unity:** $1 + i + i^2 + \dots + i^{2025}$. 
+  Students should immediately recognize the powers of $i$ have cycle length 4 and sum to 0. 
+  Likewise, for the complex cube roots of unity: $1 + \omega + \omega^2 = 0$. These are extremely high-yield shortcuts.
+
+---
+
+## 9. Linear Recurrences
+
+If a sequence is defined by $x_n = A x_{n-1} + B x_{n-2}$, assume a geometric solution $x_n = r^n$. Substituting yields the **Characteristic Equation**:
+$$ r^2 - Ar - B = 0 $$
+If this quadratic has distinct roots $r_1, r_2$, the formula is $x_n = C_1(r_1)^n + C_2(r_2)^n$.
+* **Repeated Roots:** If $(r-1)^2 = 0$, the roots repeat, and the solution takes the form $a_n = C_1 + C_2n$.
+* **Complex Roots:** Equations like $r^2 - 2r + 2 = 0$ yield $1 \pm i$. This indicates the sequence will oscillate.
+
+---
+
+## 10. AMC Tricks
+
+When you see these expressions on a contest, bypass standard algebra and use these direct rewrites:
+
+| Expression | Rewrite | Technique |
+| :--- | :--- | :--- |
+| $\frac{k}{k+1}$ | $1 - \frac{1}{k+1}$ | Telescoping |
+| $\frac{k+1}{k}$ | $1 + \frac{1}{k}$ | Telescoping |
+| $\frac{1}{\sqrt{k+1} + \sqrt{k}}$ | $\sqrt{k+1} - \sqrt{k}$ | Rationalize Conjugate |
+| $\frac{1}{k(k+1)}$ | $\frac{1}{k} - \frac{1}{k+1}$ | Partial Fractions |
+| $\frac{1}{k^2-1}$ | $\frac{1}{2}(\frac{1}{k-1} - \frac{1}{k+1})$ | Non-Adjacent Partial Fractions |
+| $a_{n+1} = pa_n + q$ | $b_{n+1} = p b_n$ | Shift by fixed point |
+| $a_{n+1} = f(a_n)$ | $L = f(L)$ | Find fixed point limit |
+
+---
+
+## Worked Examples
+
+### Example 1: Finite Differences
+**Problem:** Find the $n$th term formula for the sequence $2, 7, 16, 29, 46, \dots$
+
+**Solution:**
+Take the first differences between consecutive terms: $5, 9, 13, 17 \dots$
+Take the second differences: $4, 4, 4 \dots$
+Because the second difference is a constant $4$, the sequence is governed by a quadratic formula $a_n = An^2 + Bn + C$.
+Using the first three terms ($n=1, 2, 3$):
+1) $A + B + C = 2$
+2) $4A + 2B + C = 7$
+3) $9A + 3B + C = 16$
+Subtracting (1) from (2) gives $3A + B = 5$. Subtracting (2) from (3) gives $5A + B = 9$.
+Subtracting those results yields $2A = 4 \implies A = 2$.
+Substituting back: $3(2) + B = 5 \implies B = -1$.
+Finally: $2 - 1 + C = 2 \implies C = 1$.
+Formula: $a_n = 2n^2 - n + 1$.
+
+### Example 2: Polynomial Summation
+**Problem:** Evaluate the sum $\sum_{k=1}^{40} k(k+2)$.
+
+**Solution:**
+Expand the expression inside the sum: $\sum_{k=1}^{40} (k^2 + 2k)$.
+Use the linearity of summation: $\sum_{k=1}^{40} k^2 + 2\sum_{k=1}^{40} k$.
+Apply the known power sum formulas with $n=40$:
+$$ \frac{40(41)(81)}{6} + 2 \left(\frac{40(41)}{2}\right) $$
+$$ 22140 + 1640 = 23780 $$
+
+### Example 3: Hidden Multiple Geometric Series
+**Problem:** Evaluate $\sum_{k=1}^{\infty} \frac{2^k + 3^k}{5^k}$.
+
+**Solution:**
+Split the fraction into two separate infinite geometric series:
+$$ \sum_{k=1}^{\infty} \left(\frac{2}{5}\right)^k + \sum_{k=1}^{\infty} \left(\frac{3}{5}\right)^k $$
+For the first series: $a = \frac{2}{5}, r = \frac{2}{5} \implies S_1 = \frac{2/5}{1 - 2/5} = \frac{2}{3}$.
+For the second series: $a = \frac{3}{5}, r = \frac{3}{5} \implies S_2 = \frac{3/5}{1 - 3/5} = \frac{3}{2}$.
+Total sum: $\frac{2}{3} + \frac{3}{2} = \frac{13}{6}$.
+
+### Example 4: Non-Adjacent Partial Fractions
+**Problem:** Evaluate $\sum_{k=1}^{99} \frac{1}{k^2 + 2k}$.
+
+**Solution:**
+Set up partial fractions: $\frac{1}{k(k+2)} = \frac{1}{2} \left(\frac{1}{k} - \frac{1}{k+2}\right)$.
+Because the gap between denominators is $2$, two positive terms survive at the start and two negative terms survive at the end.
+$$ \frac{1}{2} \left( \frac{1}{1} + \frac{1}{2} - \frac{1}{100} - \frac{1}{101} \right) $$
+$$ \frac{1}{2} \left( \frac{3}{2} - \frac{201}{10100} \right) = \frac{14949}{20200} $$
+
+### Example 5: The Recursive Fixed Point Limit
+**Problem:** A sequence is defined by $a_1 = 3$ and $a_{n+1} = \frac{5a_n - 4}{a_n + 1}$. Assuming the sequence converges, find its limit.
+
+**Solution:**
+At infinity, both $a_n$ and $a_{n+1}$ become indistinguishable from the limit $L$.
+$$ L = \frac{5L - 4}{L + 1} $$
+$$ L^2 + L = 5L - 4 $$
+$$ L^2 - 4L + 4 = 0 $$
+$$ (L - 2)^2 = 0 \implies L = 2 $$
+
+### Example 6: The Arithmetico-Geometric Series (AGS)
+**Problem:** Evaluate the infinite sum $S = \sum_{n=1}^\infty \frac{n}{2^n}$.
+
+**Solution:**
+Write out the first few terms to see the structure:
+$$ S = \frac{1}{2} + \frac{2}{4} + \frac{3}{8} + \frac{4}{16} + \dots $$
+Multiply the entire sum by the common geometric ratio $r = 1/2$:
+$$ \frac{1}{2}S = \frac{1}{4} + \frac{2}{8} + \frac{3}{16} + \dots $$
+Subtract the shifted sum from the original sum. Notice how aligning the denominators causes the arithmetic numerator to drop to a constant $1$:
+$$ S - \frac{1}{2}S = \frac{1}{2} + \left(\frac{2}{4} - \frac{1}{4}\right) + \left(\frac{3}{8} - \frac{2}{8}\right) + \dots $$
+$$ \frac{1}{2}S = \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \dots $$
+The right side is now a pure geometric series summing to $1$.
+$$ \frac{1}{2}S = 1 \implies S = 2 $$
+
+### Example 7: Radical Telescoping
+**Problem:** Evaluate $\sum_{n=1}^{99} \frac{1}{\sqrt{n} + \sqrt{n+1}}$.
+
+**Solution:**
+Rationalize the denominator by multiplying by the conjugate $\sqrt{n+1} - \sqrt{n}$:
+$$ \frac{1}{\sqrt{n} + \sqrt{n+1}} \cdot \frac{\sqrt{n+1} - \sqrt{n}}{\sqrt{n+1} - \sqrt{n}} = \sqrt{n+1} - \sqrt{n} $$
+Now write out the telescoped sum:
+$$ (\sqrt{2} - \sqrt{1}) + (\sqrt{3} - \sqrt{2}) + \dots + (\sqrt{100} - \sqrt{99}) $$
+The middle collapses entirely, leaving only $\sqrt{100} - \sqrt{1} = 10 - 1 = 9$.
+
+### Example 8: Solving a Linear Recurrence
+**Problem:** A sequence is defined by $a_0 = 0, a_1 = 1$, and $a_n = 5a_{n-1} - 6a_{n-2}$. Find an explicit formula for $a_n$.
+
+**Solution:**
+Set up the characteristic equation:
+$$ r^2 - 5r + 6 = 0 $$
+Factoring yields $(r-2)(r-3) = 0$, so the roots are $r_1 = 2$ and $r_2 = 3$. 
+General solution: $a_n = C_1(2)^n + C_2(3)^n$.
+Using initial conditions:
+$n=0 \implies 0 = C_1 + C_2 \implies C_1 = -C_2$
+$n=1 \implies 1 = 2C_1 + 3C_2 \implies 1 = -2C_2 + 3C_2 \implies C_2 = 1, C_1 = -1$.
+Explicit formula: $a_n = 3^n - 2^n$.
+
+### Example 9: Vieta's and Sequences
+**Problem:** The roots of $x^3 - 12x^2 + ax - 28 = 0$ form an arithmetic progression. Find $a$.
+
+**Solution:**
+Because the three roots form an AP, define them symmetrically as $p-d$, $p$, and $p+d$.
+By Vieta's formulas, the sum of the roots equals the negation of the $x^2$ coefficient:
+$$ (p-d) + p + (p+d) = 12 \implies 3p = 12 \implies p = 4 $$
+Since $4$ is a root, plugging $x = 4$ into the polynomial must equal zero:
+$$ (4)^3 - 12(4)^2 + a(4) - 28 = 0 \implies 64 - 192 + 4a - 28 = 0 \implies 4a = 156 \implies a = 39 $$
+
+### Example 10: Where the Telescoping Method is NOT Obvious
+**Problem:** Evaluate $\sum_{k=1}^{100} \frac{2k+1}{k^2(k+1)^2}$.
+
+**Solution:**
+Unlike standard partial fractions, this numerator looks troublesome. However, look for the derivative or a difference of squares in the numerator.
+Notice that $(k+1)^2 - k^2 = (k^2+2k+1) - k^2 = 2k+1$.
+Rewrite the fraction:
+$$ \frac{(k+1)^2 - k^2}{k^2(k+1)^2} = \frac{(k+1)^2}{k^2(k+1)^2} - \frac{k^2}{k^2(k+1)^2} = \frac{1}{k^2} - \frac{1}{(k+1)^2} $$
+The fraction telescopes perfectly! 
+$$ \left(\frac{1}{1^2} - \frac{1}{2^2}\right) + \left(\frac{1}{2^2} - \frac{1}{3^2}\right) + \dots + \left(\frac{1}{100^2} - \frac{1}{101^2}\right) $$
+The sum completely collapses to $1 - \frac{1}{101^2}$.
+
+### Example 11: Summation by Pairing
+**Problem:** Evaluate $\sum_{k=1}^{100} k(101-k)$.
+
+**Solution:**
+While you could expand this into $101\sum k - \sum k^2$ and use power formulas, you can also recognize pairing symmetry.
+Let the sum be $S = 1(100) + 2(99) + 3(98) + \dots + 99(2) + 100(1)$.
+Notice that term 1 equals term 100, term 2 equals term 99, etc. 
+This symmetric behavior implies you only need to evaluate the first 50 terms and double it:
+$$ S = 2 \sum_{k=1}^{50} k(101-k) $$
+This reduces the computational load and minimizes arithmetic errors during contests.
+
+### Example 12: Sequence as a Polynomial Difference
+**Problem:** If $a_n = n^3$, find the degree of the sequence $b_n = a_{n+1} - a_n$.
+
+**Solution:**
+Evaluate the difference explicitly:
+$$ b_n = (n+1)^3 - n^3 = (n^3 + 3n^2 + 3n + 1) - n^3 = 3n^2 + 3n + 1 $$
+The sequence $b_n$ is a quadratic polynomial. Taking the difference of any polynomial sequence lowers its degree by exactly 1.
+
+### Example 13: The Synthesis
+**Problem:** Evaluate $\sum_{k=1}^{100} \frac{k}{(k+1)!}$.
+
+**Solution:**
+Generate a telescoping form by rewriting the numerator:
+$$ \frac{k}{(k+1)!} = \frac{(k+1) - 1}{(k+1)!} = \frac{k+1}{(k+1)!} - \frac{1}{(k+1)!} $$
+Simplify the left fraction by cancelling $(k+1)$:
+$$ \frac{1}{k!} - \frac{1}{(k+1)!} $$
+We have successfully engineered a perfect telescoping series! Now write out the sum:
+$$ \left(\frac{1}{1!} - \frac{1}{2!}\right) + \left(\frac{1}{2!} - \frac{1}{3!}\right) + \dots + \left(\frac{1}{100!} - \frac{1}{101!}\right) $$
+Every intermediate term cancels, leaving $1 - \frac{1}{101!}$.
 
 ## Practice Problems
 
