@@ -65,16 +65,26 @@
     {
       "uniqueId": "amc8-2023-13",
       "name": "Problem 13 (2023 AMC 8)",
-      "url": "https://artofproblemsolving.com/wiki/index.php/2023_AMC_8_Problems/Problem_13",
+      "url": "https://artofproblemsolving.com/wiki/index.php?title=2023_AMC_8_Problems/Problem_13",
       "source": "AMC 8",
-      "difficulty": "Medium",
+      "difficulty": "Normal",
       "isStarred": false,
       "tags": [
-        "Proportional Reasoning",
-        "Algebra",
-        "Operations"
+        "Distance",
+        "Fractions"
       ],
-      "statement": "Along the route of a bicycle race, $7$ water stations are evenly spaced between the start and finish lines, as shown in the figure below. There are also $2$ repair stations evenly spaced between the start and finish lines. The $3$rd water station is located $2$ miles after the $1$st repair station. How long is the race in miles?",
+      "statement": "Along the route of a bicycle race, $7$ water stations are evenly spaced between the start and finish lines, as shown in the figure below. There are also $2$ repair stations evenly spaced between the start and finish lines. The 3rd water station is located $2$ miles after the 1st repair station. How long is the race in miles? [See figure in original PDF]",
+      "interaction": {
+        "type": "mcq",
+        "choices": [
+          "$8$",
+          "$16$",
+          "$24$",
+          "$48$",
+          "$96$"
+        ],
+        "correctIndex": 3
+      },
       "solutionMetadata": {
         "kind": "none"
       }

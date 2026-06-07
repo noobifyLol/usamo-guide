@@ -32,7 +32,8 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
       description: 'Interpreting data, central tendency, and organizing information visually.',
       items: [
         'mean-median-mode-range',
-        'chart-graph-interpretation',
+        'chart-graph-interpretation-p1',
+        'chart-graph-interpretation-p2',
         'venn-diagrams-sets',
       ],
     },
@@ -206,7 +207,9 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
     {
       name: 'Sequences & Series',
       description: 'Convergence, recursive formulas, and summation methods.',
-      items: ['sequences-series'],
+      items: ['sequences-series-intermediate-p1',
+        'sequences-series-intermediate-p2'
+      ],
     },
     {
       name: 'Trigonometry',
