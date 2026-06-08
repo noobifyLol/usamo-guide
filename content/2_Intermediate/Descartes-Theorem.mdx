@@ -10,6 +10,65 @@ prerequisites: ["geometry-basics"]
 
 Descartes' theorem is a formula in four variables which describes the relationship between the radii of 4 mutually tangent circles. It most commonly appears in AMC10/12 and some AIME problems.
 
+<svg viewBox="0 0 680 520" role="img" aria-label="Descartes circle theorem — four mutually tangent circles" style={{ width: '100%', maxWidth: '680px', height: 'auto', display: 'block', margin: '1.5rem auto' }} xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Outer enclosing circle (negative curvature) -->
+  <circle cx="290" cy="270" r="170" fill="none" stroke="#ffffff" strokeWidth="1.5"/>
+
+  <!-- Three equal inner circles -->
+  <circle cx="290" cy="179" r="79" fill="none" stroke="#F0997B" strokeWidth="1.5"/>
+  <circle cx="211" cy="316" r="79" fill="none" stroke="#AFA9EC" strokeWidth="1.5"/>
+  <circle cx="369" cy="316" r="79" fill="none" stroke="#5DCAA5" strokeWidth="1.5"/>
+
+  <!-- Inner Soddy circle (4th tangent circle) -->
+  <circle cx="290" cy="270" r="12" fill="none" stroke="#EF9F27" strokeWidth="1.5"/>
+
+  <!-- Curvature labels -->
+  <text x="290" y="183" textAnchor="middle" dominantBaseline="central" fontFamily="Georgia, serif" fontSize="15" fontStyle="italic" fill="#F0997B">k₁</text>
+  <text x="211" y="320" textAnchor="middle" dominantBaseline="central" fontFamily="Georgia, serif" fontSize="15" fontStyle="italic" fill="#AFA9EC">k₂</text>
+  <text x="369" y="320" textAnchor="middle" dominantBaseline="central" fontFamily="Georgia, serif" fontSize="15" fontStyle="italic" fill="#5DCAA5">k₃</text>
+  <text x="290" y="271" textAnchor="middle" dominantBaseline="central" fontFamily="Georgia, serif" fontSize="10" fontStyle="italic" fill="#EF9F27">k₄</text>
+
+  <!-- Outer circle label -->
+  <text x="206" y="138" textAnchor="middle" fontFamily="Georgia, serif" fontSize="13" fontStyle="italic" fill="#ffffff">k₀ &lt; 0</text>
+  <line x1="214" y1="148" x2="222" y2="168" stroke="#ffffff" strokeWidth="0.8" strokeDasharray="3 2"/>
+
+  <!-- Tangency point dots -->
+  <circle cx="250" cy="248" r="3" fill="#ffffff" opacity="0.5"/>
+  <circle cx="330" cy="248" r="3" fill="#ffffff" opacity="0.5"/>
+  <circle cx="290" cy="316" r="3" fill="#ffffff" opacity="0.5"/>
+  <circle cx="290" cy="258" r="3" fill="#ffffff" opacity="0.5"/>
+  <circle cx="280" cy="276" r="3" fill="#ffffff" opacity="0.5"/>
+  <circle cx="300" cy="276" r="3" fill="#ffffff" opacity="0.5"/>
+
+  <!-- Formula panel -->
+  <text x="495" y="110" textAnchor="middle" fontFamily="Georgia, serif" fontSize="13" fill="#ffffff">Descartes' Circle Theorem</text>
+  <text x="495" y="148" textAnchor="middle" fontFamily="Georgia, serif" fontSize="13" fill="#ffffff">(k₁+k₂+k₃+k₄)²</text>
+  <line x1="432" y1="160" x2="558" y2="160" stroke="#ffffff" strokeWidth="0.8"/>
+  <text x="495" y="175" textAnchor="middle" fontFamily="Georgia, serif" fontSize="12" fill="#ffffff">= 2(k₁²+k₂²+k₃²+k₄²)</text>
+  <text x="435" y="218" fontFamily="Georgia, serif" fontSize="12" fill="#aaaaaa">where kᵢ = 1/rᵢ  (curvature)</text>
+
+  <!-- Legend -->
+  <line x1="435" y1="260" x2="460" y2="260" stroke="#F0997B" strokeWidth="1.5"/>
+  <text x="466" y="264" fontFamily="Georgia, serif" fontSize="12" fill="#F0997B">Circle 1  (k₁ = 1/r₁)</text>
+  <line x1="435" y1="285" x2="460" y2="285" stroke="#AFA9EC" strokeWidth="1.5"/>
+  <text x="466" y="289" fontFamily="Georgia, serif" fontSize="12" fill="#AFA9EC">Circle 2  (k₂ = 1/r₂)</text>
+  <line x1="435" y1="310" x2="460" y2="310" stroke="#5DCAA5" strokeWidth="1.5"/>
+  <text x="466" y="314" fontFamily="Georgia, serif" fontSize="12" fill="#5DCAA5">Circle 3  (k₃ = 1/r₃)</text>
+  <line x1="435" y1="335" x2="460" y2="335" stroke="#EF9F27" strokeWidth="1.5"/>
+  <text x="466" y="339" fontFamily="Georgia, serif" fontSize="12" fill="#EF9F27">Soddy circle  (k₄ = 1/r₄)</text>
+  <line x1="435" y1="360" x2="460" y2="360" stroke="#ffffff" strokeWidth="1.5"/>
+  <text x="466" y="364" fontFamily="Georgia, serif" fontSize="12" fill="#ffffff">Outer circle  (k₀ &lt; 0)</text>
+
+  <!-- Equal-circle worked example -->
+  <text x="495" y="408" textAnchor="middle" fontFamily="Georgia, serif" fontSize="11" fill="#aaaaaa">Equal circles: r₁=r₂=r₃=79</text>
+  <text x="495" y="426" textAnchor="middle" fontFamily="Georgia, serif" fontSize="11" fill="#aaaaaa">k₁=k₂=k₃ ≈ 0.0127,  k₄ ≈ 0.0833</text>
+  <text x="495" y="444" textAnchor="middle" fontFamily="Georgia, serif" fontSize="11" fill="#aaaaaa">Check: (3k+k₄)² = 2(3k²+k₄²) ✓</text>
+
+  <!-- Bottom caption -->
+  <text x="290" y="490" textAnchor="middle" fontFamily="Georgia, serif" fontSize="11" fill="#aaaaaa">Tangency points shown as dots · All four circles are pairwise tangent</text>
+</svg>
+
 ## Key Ideas
 
 - The formal statement of the theorem is
