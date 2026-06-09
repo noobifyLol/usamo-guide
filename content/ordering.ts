@@ -257,7 +257,8 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
     {
       name: 'Calculus',
       description: 'Differentiation, Integration, and Differential Equations',
-      items: ["intro-derivatives",
+      items: [
+        'intro-derivatives',
         'differentiation-rules',
         'chain-rule',
         'lhopitals-rule',
@@ -265,7 +266,14 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
         'related-rates',
         'minima-maxima-optimization',
         'taylor-series',
-        ],
+        'fundamental-theorem-of-calculus',
+        'integration-rules',
+        'substitutions',
+        'integration-by-parts',
+        'trigonometric-substitution',
+        'integral-averages',
+        'gaussian-integrals',
+      ],
     },
     {
       name: 'Polynomials & Roots',
