@@ -28,8 +28,6 @@ function pageToAlgoliaRecord({
     objectID: frontmatter.id,
     ...frontmatter,
     ...fields,
-    ...rest,
-    content: extractSearchableText(JSON.parse(mdast)),
   };
 }
 

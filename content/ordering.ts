@@ -281,11 +281,6 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
       items: ['polynomials-roots'],
     },
     {
-      name: 'Complex Numbers',
-      description: 'Advanced complex number techniques for AIME geometry and algebra.',
-      items: ['complex-numbers'],
-    },
-    {
       name: 'Advanced Geometry',
       description: 'Projective methods, inversions, homothety, and spiral similarity.',
       items: [
