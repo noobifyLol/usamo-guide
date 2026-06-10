@@ -6,8 +6,6 @@ description: Translate counting into algebra using power series.
 prerequisites: ["counting-advanced", "advanced-algebra"]
 ---
 
-<!-- Based on generatingfunctionology: https://www2.math.upenn.edu/~wilf/gfologyLinked2.pdf-->
-
 ## Overview
 
 When solving combinatorial problems, it may be hard to brute-force or manipulate case-work by using words.
@@ -53,7 +51,6 @@ Represent numbers such as cost or amount in the power.
 
 ### Recurrence Formula (ADVANCED)
 
-<!-- Based on generatingfunctionology: https://www2.math.upenn.edu/~wilf/gfologyLinked2.pdf-->
 
 When given a recurrence formula that is to be solved by using generating functions, use the following method:
 1. Make sure that the values of the variable (e.g. $n$) such that the recurrence 
@@ -369,16 +366,18 @@ $$
 
 - Translate each constraint into a factor.
 - Use binomial series for $(1-x)^{-k}$.
-  - Use the geometric series $$
+  - Use the geometric series $1+x+x^2+\dots = \frac{1}{1-x}$.
 - Truncate when only a few coefficients are needed.
-- Convert the amount of an item into a power of $x$
+- Convert the amount of an item into a power of $x$.
 - Use the above 'method' to solve for the recurrence relation.
   1. Describe variables
   2. Name Generating Functions
   3. Sum over all $n$ that the relation holds
-  4. Express equation in generating function from Step 2
+  4. Express equation in generating functions from Step 2
   5. Solve equation
-  6. Expand generating function into power series to extract coefficient.
+  6. Expand generating function into power series to extract coefficients.
+
+(This module was based on generating functionology: https://www2.math.upenn.edu/~wilf/gfologyLinked2.pdf )
 
 ## Practice Problems
 
