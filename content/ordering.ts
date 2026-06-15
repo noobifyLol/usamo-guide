@@ -104,6 +104,11 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
         'intro-probability',
         'inclusion-exclusion',
         'stars-and-bars',
+        'circular-permutations',
+        'splitting-objects-into-groups',
+        'distributing-objects',
+        'arrangements-rank-and-sums',
+        'multinomial-theorem-and-applications',
         'geometric-counting',
         'recursion-basics',
         'pascals-triangle-binomial-theorem',
@@ -126,6 +131,7 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
         'function-basics-p1',
         'function-basics-p2',
         'vieta-formulas',
+        'locating-roots',
         'vieta-jumping',
         'polynomial-manipulations',
         'function-basics',
@@ -145,7 +151,10 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
     {
       name: 'Counting & Casework',
       description: 'Multi-step counting with careful case analysis.',
-      items: ['advanced-counting'],
+      items: [
+        'advanced-counting',
+        'block-walk'
+      ],
     },
     {
       name: 'Probability',
