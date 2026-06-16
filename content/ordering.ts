@@ -47,9 +47,7 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
         'systems-equations',
         'defined-operations',
         'exponent-rules',
-        'quadratic-identities',
         'quadratic-formula',
-        'cubic-factorizations',
         'polynomial-factoring-and-identities',
         'sfft-factoring',
         'substitution-techniques',
@@ -67,7 +65,6 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
         'triangle-fundamentals',
         'triangle-types-properties',
         'right-triangles',
-        'special-right-triangles',
         'similarity-basics',
         'triangle-congruence-similarty',
         'proportionality-thales',
@@ -129,7 +126,6 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
         'binomial-theorem-p2',
         'higher-power-factorizations',
         'sophie-germain-identity',
-        'symmetric-identity',
         'vieta-formulas',
         'locating-roots',
         'symmetric-polynomials',
@@ -160,7 +156,6 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
       name: 'Probability',
       description: 'Conditional probability, geometric probability, and expected value.',
       items: [
-        'probability-intermediate',
         'geometric-probability',
         'expected-value',
       ],
@@ -197,7 +192,6 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
       name: 'Coordinate Geometry',
       description: 'Analytic methods, Shoelace formula, and coordinate-based proofs.',
       items: [
-        'coordinate-geometry', 
         'shoelace-theorem-p1',
         'shoelace-theorem-p2'
       ],
@@ -238,7 +232,6 @@ const MODULE_ORDERING: { [key in SectionID]: Chapter[] } = {
         'complex-plane',
         'complex-polar-form',
         'roots-of-unity',
-        'complex-trigonometry',
       ],
     },
     {
