@@ -1,4 +1,18 @@
 {
   "MODULE_ID": "divisibility-rules",
-  "practice": []
+  "practice": [{
+      "uniqueId": "amc8-2000-11",
+      "name": "Problem 11 (2000 AMC 8)",
+      "url": "https://artofproblemsolving.com/wiki/index.php?title=2000_AMC_8_Problems/Problem_11",
+      "source": "AMC 8",
+      "difficulty": "Medium",
+      "isStarred": true,
+      "tags": [
+        "Divisibility Rules"
+      ],
+      "statement": "The number $64$ has the property that it is divisible by its unit digit. How many whole numbers between 10 and 50 have this property?",
+      "solutionMetadata": {
+        "kind": "none"
+      }
+    }]
 }
